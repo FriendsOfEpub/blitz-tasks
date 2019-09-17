@@ -1,0 +1,21 @@
+{
+  "scope": "Example",
+  "version": "1.0.0",
+  "retag": [
+    {"search": ".image", "replace": "figure"},
+    {"search": ".caption", "replace": "figcaption"},
+    {"search": ".title-1", "replace": "h1"},
+    {"search": ".title-2", "replace": "h2"},
+    {"search": "span.italic", "replace": "em"}
+  ],
+  "sanitize": [
+    {"unwrap": "h1 > b, h2 > b, span:not([class]):not([id])"},
+    {"removeClass": ".title-1, .title-2, p.text, em.italic"}
+  ],
+  "identify": [
+    {"search": "figure", "prefix": "fig"},
+    {"search": "h1", "prefix": "heading"},
+    {"search": "h2", "prefix": "subheading"},
+    {"search": "p", "prefix": "para"}
+  ]
+}

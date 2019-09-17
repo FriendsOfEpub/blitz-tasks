@@ -1,0 +1,20 @@
+{
+  "name": "markupatron",
+  "version": "0.1.0",
+  "description": "Automating markup changes with node, gulp and config files",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "go": "gulp default"
+  },
+  "keywords": [
+    "automation",
+    "gulp",
+    "cheerio"
+  ],
+  "author": "Jiminy Panoz",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cheerio": "^0.6.3"
+  }
+}
