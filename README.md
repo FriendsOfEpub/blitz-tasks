@@ -182,9 +182,14 @@ In this example, we are adding a stylesheet at the end of `<head>`.
 
 ### Options
 
-Finally, options allow you to define changes at the document level. It currently manages `<title>` and `lang`.
+Finally, options allow you to define changes and optimization during the default (`gulp` or `gulp default`) process. It allows you to: 
 
-#### Title
+- automate changing the document title based on headings found in a document;
+- set a default language for each document;
+- optimize images;
+- minify stylesheets.
+
+#### Document Title
 
 Property `docTitle` expects a CSS selector and allows you to define what the `<title>` of the document should be. 
 
@@ -198,14 +203,38 @@ Here, we instruct markupatron that it should check for an `h1`, and if it doesnâ
 
 If no result is found in a document, it will ignore the option.
 
-#### Lang
+#### Document Language
 
-Property `lang` expects a BCP-47 language tag and allows you to define a `lang` attribute for the root element (`html`).
+Property `docLang` expects a BCP-47 language tag and allows you to define a `lang` attribute for the root element (`html`).
 
 ```
 "options": {
-  "lang": "fr"
+  "docLang": "fr"
 }
 ```
 
 If the document is XHTML, is will also add an `xml:lang` attribute.
+
+#### Image optimization
+
+Property `imageOptim` expects a boolean.
+
+```
+"options": {
+  "imageOptim": true
+}
+```
+
+When set to `true`, all GIF, JPEG, PNG, and SVG images added to `input` will be optimized.
+
+#### Stylesheets minification
+
+Property `minifyCSS` expects a boolean.
+
+```
+"options": {
+  "minifyCSS": true
+}
+```
+
+When set to `true`, all stylesheets (`.css`) added to `input` will be minified (a.k.a. removing comments, new lines, spaces, etc.).

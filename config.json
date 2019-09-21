@@ -89,6 +89,8 @@
   ],
   "options": {
     "docTitle": "h1, h2",
-    "lang": "fr"
+    "docLang": "fr",
+    "imageOptim": true,
+    "minifyCSS": true
   }
 }

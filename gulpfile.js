@@ -1,6 +1,8 @@
 const minimist = require('minimist');
 const gulp = require("gulp");
 const cheerio = require("gulp-cheerio");
+const imagemin = require('gulp-imagemin');
+const cleanCSS = require('gulp-clean-css');
 
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
@@ -17,6 +19,8 @@ const cheerioOpts = {
   lowerCaseAttributeNames: true,
   recognizeSelfClosing: true
 }
+
+const configOpts = config.options;
 
 function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
@@ -43,7 +47,6 @@ function sanitize() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
-
       if (config.sanitize) {
         for (let x in config.sanitize) {
           $(config.sanitize[x].search).each(function() {
@@ -59,7 +62,6 @@ function sanitize() {
           });
         } 
       }
-      
     },
     parserOptions: cheerioOpts
   }))
@@ -70,7 +72,6 @@ function classify() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
-
       if (config.classify) {
         for (let x in config.classify) {
           $(config.classify[x].search).each(function() {
@@ -88,7 +89,6 @@ function identify() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
-
       if (config.identify) {
         for (let x in config.identify) {
           $(config.identify[x].search).each(function(i, item) {
@@ -107,7 +107,6 @@ function append() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
-
       if (config.append) {
         for (let x in config.append) {
           $(config.append[x].where).each(function() {
@@ -121,13 +120,12 @@ function append() {
   .pipe(gulp.dest("./"))
 }
 
-function handleOptions() {
+function docOptions() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
-
-      if (config.options) {
-        if (config.options.docTitle) {
+      if (configOpts) {
+        if (configOpts.docTitle) {
           const title = $("title");
           const headings = $(config.options.docTitle);
           if (headings.length > 0) {
@@ -139,11 +137,11 @@ function handleOptions() {
           }
         }
 
-        if (config.options.lang) {
-          $("html").attr("lang", config.options.lang);
+        if (configOpts.docLang) {
+          $("html").attr("lang", config.options.docLang);
 
           if (file.path.indexOf(".xhtml") !== -1) {
-            $("html").attr("xml:lang", config.options.lang);
+            $("html").attr("xml:lang", config.options.docLang);
           }
         }
       }
@@ -153,11 +151,36 @@ function handleOptions() {
   .pipe(gulp.dest("./"))
 }
 
+function imageOptim() {
+  if (configOpts && configOpts.imageOptim) {
+    return gulp.src("output/**/*.{gif,jpg,jpeg,png,svg}", {base: "./"})
+    .pipe(imagemin())
+    .pipe(gulp.dest("./"))
+  } else {
+    return;
+  }
+}
+
+function minifyCSS() {
+  if (configOpts && configOpts.minifyCSS) {
+    return gulp.src("output/**/*.css", {base: "./"})
+    .pipe(cleanCSS())
+    .pipe(gulp.dest("./"))     
+  } else {
+    return;
+  }
+}
+
+const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS);
+
 exports.init = init;
 exports.retag = retag;
 exports.sanitize = sanitize;
 exports.classify = classify;
 exports.identify = identify;
 exports.append = append;
+exports.docOptions = docOptions;
+exports.imageOptim = imageOptim;
+exports.minifyCSS = minifyCSS;
 exports.handleOptions = handleOptions;
 exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);

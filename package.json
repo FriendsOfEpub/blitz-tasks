@@ -15,6 +15,8 @@
   "devDependencies": {
     "gulp": "^4.0.0",
     "gulp-cheerio": "^0.6.3",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-imagemin": "^6.1.0",
     "minimist": "^1.2.0"
   }
 }
