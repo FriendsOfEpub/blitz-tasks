@@ -6,7 +6,7 @@ Automating markup changes with node, gulp and config files
 
 First make sure you have nodeJS and npm installed. 
 
-We recommend installing the dev dependencies locally so that this repo can be used as a template.
+We recommend installing the dev dependencies globally so that this repo can be used as a template.
 
 ```
 npm install -g gulp gulp-cheerio
@@ -20,11 +20,15 @@ npm install
 
 ## Usage
 
+Put your files in `input` (you can safely put entire folders e.g. unzipped epub).
+
 Make a custom/modify the existing config file then:
 
 ```
 gulp <task> --config "path/to/config.json"
 ```
+
+Your modified folders/files are now available in `output`.
 
 ### Examples
 
@@ -37,7 +41,7 @@ gulp
 This will run all tasks with a custom config file:
 
 ```
-gulp -c "./input/another-config.json"
+gulp -c "./another-config.json"
 ```
 
 This will only run the retag task with the existing config file:
@@ -49,7 +53,7 @@ gulp retag
 This will only run the retag task with a custom config file:
 
 ```
-gulp retag --config "./input/another-config.json"
+gulp retag --config "./another-config.json"
 ```
 
 ## Config
@@ -163,7 +167,7 @@ In this example, each paragraph will get an id with prefix `para` e.g. first par
 
 Append lets you add elements in each document. It is not using the “search & replace” concept but “where & what.”
 
-Indeed, `where` is the element inside which you want to add `what` at the end (append).
+Indeed, `where` is the element at the end of which you want to add `what` (append).
 
 ```
 {

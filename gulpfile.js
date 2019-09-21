@@ -20,10 +20,12 @@ const cheerioOpts = {
 
 gulp.task("init", function() {
   console.log("The scope of this config file is: " + config.scope, config.version);
+  return gulp.src("input/**")
+  .pipe(gulp.dest("output"))
 })
 
-gulp.task("retag", function() {
-  return gulp.src("input/*.{xhtml,html}")
+gulp.task("retag", ["init"], function() {
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
       if (config.retag) {
@@ -34,11 +36,11 @@ gulp.task("retag", function() {
     },
     parserOptions: cheerioOpts
   }))
-  .pipe(gulp.dest("output"))
+  .pipe(gulp.dest("./"))
 })
 
 gulp.task("sanitize", ["retag"], function() {
-  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
@@ -65,7 +67,7 @@ gulp.task("sanitize", ["retag"], function() {
 })
 
 gulp.task("classify", ["sanitize"], function() {
-  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
@@ -83,7 +85,7 @@ gulp.task("classify", ["sanitize"], function() {
 })
 
 gulp.task("identify", ["classify"], function() {
-  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
@@ -102,7 +104,7 @@ gulp.task("identify", ["classify"], function() {
 })
 
 gulp.task("append", ["identify"], function() {
-  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
