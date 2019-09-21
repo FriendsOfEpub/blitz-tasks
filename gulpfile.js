@@ -1,9 +1,21 @@
-var gulp = require("gulp");
-var cheerio = require("gulp-cheerio");
-var config = require("./input/config.json");
+const minimist = require('minimist');
+const gulp = require("gulp");
+const cheerio = require("gulp-cheerio");
+
+const args = minimist(process.argv.slice(2), {
+  string: ["config"],
+  alias: {c: "config"},
+  default: {config: "./config.json"}
+});
+
+const config = require(args.config);
+
+gulp.task("init", function() {
+  console.log("The scope of this config file is: " + config.scope, config.version);
+})
 
 gulp.task("retag", function() {
-  return gulp.src("input/*.html")
+  return gulp.src("input/*.{xhtml,html}")
   .pipe(cheerio({
     run: function ($, file) {
       if (config.retag) {
@@ -24,7 +36,7 @@ gulp.task("retag", function() {
 })
 
 gulp.task("sanitize", ["retag"], function() {
-  return gulp.src("output/*.html", {base: "./"})
+  return gulp.src("output/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
@@ -55,7 +67,7 @@ gulp.task("sanitize", ["retag"], function() {
 })
 
 gulp.task("identify", ["sanitize"], function() {
-  return gulp.src("output/*.html", {base: "./"})
+  return gulp.src("output/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
 
@@ -79,6 +91,4 @@ gulp.task("identify", ["sanitize"], function() {
   .pipe(gulp.dest("./"))
 })
 
-gulp.task("default", ["retag", "sanitize", "identify"], function() {
-  console.log(config.scope, config.version);
-});
+gulp.task("default", ["init", "retag", "sanitize", "identify"]);
