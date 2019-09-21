@@ -86,5 +86,9 @@
       "where": "body",
       "what": "<script type='application/javascript' src='../scripts/my-script.js'> </script>"
     }
-  ]
+  ],
+  "options": {
+    "docTitle": "h1, h2",
+    "lang": "fr"
+  }
 }

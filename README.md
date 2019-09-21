@@ -6,10 +6,10 @@ Automating markup changes with node, gulp and config files
 
 First make sure you have nodeJS and npm installed. 
 
-We recommend installing the dev dependencies globally so that this repo can be used as a template.
+Then install `gulp-cli` globally.
 
 ```
-npm install -g gulp gulp-cheerio
+npm install -g gulp-cli
 ```
 
 Then 
@@ -30,7 +30,7 @@ gulp <task> --config "path/to/config.json"
 
 Your modified folders/files are now available in `output`.
 
-**Note:** If you are not running the default, you must gulp init first.
+**Note:** If you are not running the default, you must gulp init first. If you intend to run multiple scripts, don’t forget to use the `--series` flag e.g. `gulp init sanitize --series`.
 
 ### Examples
 
@@ -179,3 +179,33 @@ Indeed, `where` is the element at the end of which you want to add `what` (appen
 ```
 
 In this example, we are adding a stylesheet at the end of `<head>`.
+
+### Options
+
+Finally, options allow you to define changes at the document level. It currently manages `<title>` and `lang`.
+
+#### Title
+
+Property `docTitle` expects a CSS selector and allows you to define what the `<title>` of the document should be. 
+
+```
+"options": {
+  "docTitle": "h1, h2"
+}
+```
+
+Here, we instruct markupatron that it should check for an `h1`, and if it doesn’t find any, check `h2`. It will use the text content of the first result found.
+
+If no result is found in a document, it will ignore the option.
+
+#### Lang
+
+Property `lang` expects a BCP-47 language tag and allows you to define a `lang` attribute for the root element (`html`).
+
+```
+"options": {
+  "lang": "fr"
+}
+```
+
+If the document is XHTML, is will also add a `xml:lang` attribute.

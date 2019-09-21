@@ -121,10 +121,43 @@ function append() {
   .pipe(gulp.dest("./"))
 }
 
+function handleOptions() {
+  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+  .pipe(cheerio({
+    run: function ($, file) {
+
+      if (config.options) {
+        if (config.options.docTitle) {
+          const title = $("title");
+          const headings = $(config.options.docTitle);
+          if (headings.length > 0) {
+            if (title.length > 0) {
+              title.text(headings.eq(0).text());
+            } else {
+              $("head").append("\n\t<title>" + heading.text() + "</title>\n")
+            }
+          }
+        }
+
+        if (config.options.lang) {
+          $("html").attr("lang", config.options.lang);
+
+          if (file.path.indexOf(".xhtml") !== -1) {
+            $("html").attr("xml:lang", config.options.lang);
+          }
+        }
+      }
+    },
+    parserOptions: cheerioOpts
+  }))
+  .pipe(gulp.dest("./"))
+}
+
 exports.init = init;
 exports.retag = retag;
 exports.sanitize = sanitize;
 exports.classify = classify;
 exports.identify = identify;
 exports.append = append;
-exports.default = gulp.series(init, retag, sanitize, classify, identify, append);
+exports.handleOptions = handleOptions;
+exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);
