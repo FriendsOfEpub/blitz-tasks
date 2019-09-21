@@ -18,13 +18,13 @@ const cheerioOpts = {
   recognizeSelfClosing: true
 }
 
-gulp.task("init", function() {
+function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
   return gulp.src("input/**")
   .pipe(gulp.dest("output"))
-})
+}
 
-gulp.task("retag", ["init"], function() {
+function retag() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -37,9 +37,9 @@ gulp.task("retag", ["init"], function() {
     parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
-})
+}
 
-gulp.task("sanitize", ["retag"], function() {
+function sanitize() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -64,9 +64,9 @@ gulp.task("sanitize", ["retag"], function() {
     parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
-})
+}
 
-gulp.task("classify", ["sanitize"], function() {
+function classify() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -82,9 +82,9 @@ gulp.task("classify", ["sanitize"], function() {
     parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
-})
+}
 
-gulp.task("identify", ["classify"], function() {
+function identify() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -101,9 +101,9 @@ gulp.task("identify", ["classify"], function() {
     parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
-})
+}
 
-gulp.task("append", ["identify"], function() {
+function append() {
   return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -119,6 +119,12 @@ gulp.task("append", ["identify"], function() {
     parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
-})
+}
 
-gulp.task("default", ["init", "retag", "sanitize", "classify", "identify", "append"]);
+exports.init = init;
+exports.retag = retag;
+exports.sanitize = sanitize;
+exports.classify = classify;
+exports.identify = identify;
+exports.append = append;
+exports.default = gulp.series(init, retag, sanitize, classify, identify, append);

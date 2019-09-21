@@ -13,7 +13,7 @@
   "author": "Jiminy Panoz",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-cheerio": "^0.6.3",
     "minimist": "^1.2.0"
   }

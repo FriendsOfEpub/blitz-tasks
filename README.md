@@ -30,6 +30,8 @@ gulp <task> --config "path/to/config.json"
 
 Your modified folders/files are now available in `output`.
 
+**Note:** If you are not running the default, you must gulp init first.
+
 ### Examples
 
 This will run all tasks with the existing config file:
