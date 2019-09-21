@@ -25,10 +25,34 @@
   ],
   "sanitize": [
     {
-      "unwrap": "h1 > b, h2 > b, span:not([class]):not([id])"
+      "search": ".remove",
+      "replace": "this"
     },
     {
-      "removeClass": ".title-1, .title-2, p.text, em.italic"
+      "search": "h1 > b, h2 > b, span:not([class]):not([id])",
+      "replace": "unwrap"
+    },
+    {
+      "search": ".title-1, .title-2, p.text, em.italic",
+      "replace": "class"
+    },
+    {
+      "search": "[id^='x']",
+      "replace": "id"
+    }
+  ],
+  "classify": [
+    {
+      "search": "p.first",
+      "replace": "first-para"
+    },
+    {
+      "search": ".small-caps",
+      "replace": "sc otf"
+    },
+    {
+      "search": "figure + h1",
+      "replace": "no-margin-top"
     }
   ],
   "identify": [
@@ -47,6 +71,20 @@
     {
       "search": "p", 
       "prefix": "para"
+    }
+  ],
+  "append": [
+    {
+      "where": "head",
+      "what": "<link type='text/css' rel='stylesheet' href='../css/my-styles.css'/>"
+    },
+    {
+      "where": "head",
+      "what": "<meta charset='UTF-8'/>"
+    },
+    {
+      "where": "body",
+      "what": "<script type='application/javascript' src='../scripts/my-script.js'> </script>"
     }
   ]
 }

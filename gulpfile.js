@@ -10,6 +10,14 @@ const args = minimist(process.argv.slice(2), {
 
 const config = require(args.config);
 
+const cheerioOpts = {
+  xmlMode: true,
+  decodeEntities: false,
+  lowerCaseTags: true,
+  lowerCaseAttributeNames: true,
+  recognizeSelfClosing: true
+}
+
 gulp.task("init", function() {
   console.log("The scope of this config file is: " + config.scope, config.version);
 })
@@ -24,13 +32,7 @@ gulp.task("retag", function() {
         }
       }
     },
-    parserOptions: {
-      xmlMode: true,
-      decodeEntities: false,
-      lowerCaseTags: true,
-      lowerCaseAttributeNames: true,
-      recognizeSelfClosing: true
-    }
+    parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("output"))
 })
@@ -42,31 +44,45 @@ gulp.task("sanitize", ["retag"], function() {
 
       if (config.sanitize) {
         for (let x in config.sanitize) {
-          if (config.sanitize[x].unwrap) {
-            $(config.sanitize[x].unwrap).each(function() {
+          $(config.sanitize[x].search).each(function() {
+            const xReplace = config.sanitize[x].replace;
+            
+            if (xReplace === "this") {
+              $(this).remove();
+            } else if (xReplace === "unwrap") {
               $(this).replaceWith($.html(this.children));
-            })
-          } else if (config.sanitize[x].removeClass) {
-            $(config.sanitize[x].removeClass).each(function() {
-              $(this).removeAttr("class");
-            });
-          }
-        }
+            } else {
+              $(this).removeAttr(xReplace);
+            }
+          });
+        } 
       }
       
     },
-    parserOptions: {
-      xmlMode: true,
-      decodeEntities: false,
-      lowerCaseTags: true,
-      lowerCaseAttributeNames: true,
-      recognizeSelfClosing: true
-    }
+    parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
 })
 
-gulp.task("identify", ["sanitize"], function() {
+gulp.task("classify", ["sanitize"], function() {
+  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  .pipe(cheerio({
+    run: function ($, file) {
+
+      if (config.classify) {
+        for (let x in config.classify) {
+          $(config.classify[x].search).each(function() {
+            $(this).removeAttr("class").addClass(config.classify[x].replace);
+          });
+        }
+      }
+    },
+    parserOptions: cheerioOpts
+  }))
+  .pipe(gulp.dest("./"))
+})
+
+gulp.task("identify", ["classify"], function() {
   return gulp.src("output/*.{xhtml,html}", {base: "./"})
   .pipe(cheerio({
     run: function ($, file) {
@@ -80,15 +96,27 @@ gulp.task("identify", ["sanitize"], function() {
         }
       }
     },
-    parserOptions: {
-      xmlMode: true,
-      decodeEntities: false,
-      lowerCaseTags: true,
-      lowerCaseAttributeNames: true,
-      recognizeSelfClosing: true
-    }
+    parserOptions: cheerioOpts
   }))
   .pipe(gulp.dest("./"))
 })
 
-gulp.task("default", ["init", "retag", "sanitize", "identify"]);
+gulp.task("append", ["identify"], function() {
+  return gulp.src("output/*.{xhtml,html}", {base: "./"})
+  .pipe(cheerio({
+    run: function ($, file) {
+
+      if (config.append) {
+        for (let x in config.append) {
+          $(config.append[x].where).each(function() {
+            $(this).append(config.append[x].what);
+          });
+        }
+      }
+    },
+    parserOptions: cheerioOpts
+  }))
+  .pipe(gulp.dest("./"))
+})
+
+gulp.task("default", ["init", "retag", "sanitize", "classify", "identify", "append"]);
