@@ -1,6 +1,6 @@
 # markupatron
 
-Automating markup changes with node, gulp and config files
+Automating markup changes with node, gulp and config files.
 
 ## Install
 
@@ -20,7 +20,7 @@ npm install
 
 ## Usage
 
-Put your files in `input` (you can safely put entire folders e.g. unzipped epub).
+Put your files in `input` (you can safely add entire folders e.g. unzipped epub).
 
 Make a custom/modify the existing config file then:
 
@@ -49,18 +49,18 @@ gulp -c "./another-config.json"
 This will only run the retag task with the existing config file:
 
 ```
-gulp retag
+gulp init retag --series
 ```
 
 This will only run the retag task with a custom config file:
 
 ```
-gulp retag --config "./another-config.json"
+gulp init retag --series --config "./another-config.json"
 ```
 
 ## Config
 
-Markupatron makes use of JSON config file to change your documents. 
+Markupatron makes use of a JSON config file to modify your documents. 
 
 It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, etc. in the future.
 
@@ -208,4 +208,4 @@ Property `lang` expects a BCP-47 language tag and allows you to define a `lang` 
 }
 ```
 
-If the document is XHTML, is will also add a `xml:lang` attribute.
+If the document is XHTML, is will also add an `xml:lang` attribute.
