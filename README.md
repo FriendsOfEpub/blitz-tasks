@@ -26,19 +26,27 @@ On top of that, Blitz Tasks also provides image optimization and css minificatio
 
 ## Install
 
-First make sure you have nodeJS and npm installed. 
+First make sure you have nodeJS and npm installed. If you don’t [install it](https://nodejs.org).
 
-Then install `gulp-cli` globally.
+Then clone this repository:
+
+```
+git clone https://github.com/JayPanoz/blitz-tasks.git
+```
+
+Then install `gulp-cli` globally:
 
 ```
 npm install -g gulp-cli
 ```
 
-Then 
+Finally `cd` into the project and:
 
 ```
 npm install
 ```
+
+This will install all required dependencies (gulp, gulp-cheerio, etc.).
 
 ## Usage
 
