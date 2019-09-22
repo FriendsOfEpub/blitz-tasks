@@ -52,10 +52,10 @@ This will install all required dependencies (gulp, gulp-cheerio, etc.).
 
 Put your files in `input` (you can safely add entire folders e.g. unzipped epub).
 
-Make a custom/modify the existing config file then:
+Make your config file then:
 
 ```
-gulp --config "./path/to/config.json"
+gulp
 ```
 
 Your modified folders/files are now available in `output`.
