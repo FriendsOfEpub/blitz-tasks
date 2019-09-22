@@ -14,7 +14,7 @@ The idea behind Blitz Tasks is to modify the markup of a large amount of files w
 
 - you must modify dozens of older HTML files (e.g. backlist EPUB);
 - you have to systematically clean and improve the markup that is output by an authoring tool;
-- you want to upgrade a lots of files to HTML5 (or EPUB3);
+- you want to upgrade lots of files to HTML5 (or EPUB3);
 - you want to add `id` to all your headings, figures, notes, etc.;
 - you want to remove or rename a lot of classes;
 - you want to add elements e.g. stylesheet, metas, etc. to a large amount of files;
@@ -28,11 +28,13 @@ On top of that, Blitz Tasks also provides image optimization and css minificatio
 
 First make sure you have nodeJS and npm installed. If you don’t [install it](https://nodejs.org).
 
-Then clone this repository:
+Then either clone this repository:
 
 ```
 git clone https://github.com/JayPanoz/blitz-tasks.git
 ```
+
+Or “use this template” on github, which will create your own repository with the same files and folders.
 
 Then install `gulp-cli` globally:
 
@@ -324,9 +326,13 @@ If you have this need/requirement and can manage its addition to Blitz Tasks, do
 
 ### Why NodeJS
 
-Because that is the environment maintainers are comfortable with, hence the easiest way to create such a project. That’s it. If we had to care about all the twitter fights on XML vs. JSON vs. YAML, or technology X vs. technology Y in general, a lot of tools wouldn’t even exist.
+Because that is the environment maintainers are comfortable with, hence the easiest way to create such a project. That’s it. 
 
-You are completely free to replicate this project and its goals into any other language/environment you prefer. Do not even hesitate to let us know so that we can advertise it in this ReadMe, because it would definitely benefit a larger amount of users, especially the ones who are not comfortable with node and JSON.
+If we had to care about all the twitter fights on XML vs. JSON vs. YAML, or technology X vs. technology Y in general, a lot of tools wouldn’t even exist.
+
+You are completely free to replicate this project and its goals into any other language/environment you prefer. 
+
+Do not hesitate to let us know so that we can advertise it in this ReadMe, as it would definitely benefit a larger amount of users, especially the ones who are not comfortable with node and JSON.
 
 ### Can I Have a Script For X?
 

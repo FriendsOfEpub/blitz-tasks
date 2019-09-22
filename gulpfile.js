@@ -99,7 +99,7 @@ function identify() {
       run: function ($, file) {
         for (let x in config.identify) {
           $(config.identify[x].search).each(function(i, item) {
-            var id = config.identify[x].replace + "-" + (i + 1);
+            const id = config.identify[x].replace + "-" + (i + 1);
             $(this).attr("id", id);
           });
         }
@@ -132,7 +132,7 @@ function append() {
 }
 
 function docOptions() {
-  if (configOpts && (configOpts.docTitle|| configOpts.docLang)) {
+  if (configOpts && (configOpts.docTitle || configOpts.docLang)) {
     return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
