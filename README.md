@@ -160,20 +160,20 @@ Classify lets you add a class or overwrite an existing one. This means it will f
 }
 ```
 
-In this example, we search for `h1` after `figure` and add a `no-margin-top` class. If there were existing classes, they will be removed.
+In this example, we search for `h1` after `figure` and add a `no-margin-top` class. If there were existing classes, they will be overwritten.
 
 ### Identify
 
-Identify lets you iterate over elements and add an identifier. Here there is nothing to `replace` so we are using a `prefix`.
+Identify lets you iterate over elements and add an identifier. Here `replace` is the prefix that will be used for ids.
 
 ```
 {
   "search": "p", 
-  "prefix": "para"
+  "replace": "para"
 }
 ```
 
-In this example, each paragraph will get an `id` with prefix `para` e.g. first paragraph in the doc will be `para-1`, second will be `para-2` and so on.
+In this example, each paragraph will get an `id` with prefix `para` e.g. first paragraph in the doc will be `para-1`, second will be `para-2` and so on. If there were existing ids, they will be overwritten.
 
 ### Append
 

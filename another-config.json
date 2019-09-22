@@ -28,15 +28,15 @@
   "identify": [
     {
       "search": "h2", 
-      "prefix": "heading"
+      "replace": "heading"
     },
     {
       "search": "h3", 
-      "prefix": "subheading"
+      "replace": "subheading"
     },
     {
       "search": "p", 
-      "prefix": "para"
+      "replace": "para"
     }
   ],
   "options": {

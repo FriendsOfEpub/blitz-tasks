@@ -58,19 +58,19 @@
   "identify": [
     {
       "search": "figure", 
-      "prefix": "fig"
+      "replace": "fig"
     },
     {
       "search": "h1", 
-      "prefix": "heading"
+      "replace": "heading"
     },
     {
       "search": "h2", 
-      "prefix": "subheading"
+      "replace": "subheading"
     },
     {
       "search": "p", 
-      "prefix": "para"
+      "replace": "para"
     }
   ],
   "append": [

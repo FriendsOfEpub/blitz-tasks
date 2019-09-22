@@ -98,7 +98,7 @@ function identify() {
       run: function ($, file) {
         for (let x in config.identify) {
           $(config.identify[x].search).each(function(i, item) {
-            var id = config.identify[x].prefix + "-" + (i + 1);
+            var id = config.identify[x].replace + "-" + (i + 1);
             $(this).attr("id", id);
           });
         }
