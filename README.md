@@ -41,38 +41,26 @@ Put your files in `input` (you can safely add entire folders e.g. unzipped epub)
 Make a custom/modify the existing config file then:
 
 ```
-gulp <task> --config "path/to/config.json"
+gulp --config "path/to/config.json"
 ```
 
 Your modified folders/files are now available in `output`.
 
-**Note:** If you are not running the default, you must gulp init first. If you intend to run multiple scripts, don’t forget to use the `--series` flag e.g. `gulp init sanitize --series`.
-
 ### Examples
 
-This will run all tasks with the existing config file:
+This will run tasks with the existing config file:
 
 ```
 gulp
 ```
 
-This will run all tasks with a custom config file:
+This will run tasks with a custom config file:
 
 ```
 gulp -c "./another-config.json"
 ```
 
-This will only run the retag task with the existing config file:
-
-```
-gulp init retag --series
-```
-
-This will only run the retag task with a custom config file:
-
-```
-gulp init retag --series --config "./another-config.json"
-```
+If you don’t need to use a task, don’t use it (remove it entirely) in your config.json. Markupatron will know it doesn’t have to run it at all. See [another-config.json](another-config.json) as an example.
 
 ## Config
 
@@ -256,3 +244,51 @@ Property `minifyCSS` expects a boolean.
 ```
 
 When set to `true`, all stylesheets (`.css`) added to `input` will be minified (a.k.a. removing comments, new lines, spaces, etc.).
+
+## Advanced Usage
+
+Markupatron makes each task available if you don’t want to run the default. Note you must `gulp init` before running those tasks.
+
+Obviously, you must still have a config file for these tasks to run.
+
+If you intend to run multiple tasks, don’t forget to use the `--series` flag e.g. `gulp retag sanitize --series`.
+
+### Examples
+
+First, init: 
+
+```
+gulp init
+```
+
+`init` will copy everything from input into output. Indeed, markupatron don’t modify your input, just in case, and will only alter files it finds in the output folder.
+
+This will only run the retag task with the existing config file:
+
+```
+gulp retag
+```
+
+This will run retag then sanitize. The `--series` flag must be used in order to run those tasks one after the other – otherwise tasks would be run asynchronously.
+
+```
+gulp retag sanitize --series
+```
+
+Finally, this will run identify and append with a custom config:
+
+```
+gulp identify append --series --config "./another-config.json"
+```
+
+### Available Tasks
+
+- init
+- retag
+- sanitize
+- classify
+- identify
+- append
+- docOptions
+- imageOptim
+- minifyCSS
