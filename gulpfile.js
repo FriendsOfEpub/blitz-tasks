@@ -6,8 +6,9 @@ const cleanCSS = require('gulp-clean-css');
 
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
-  alias: {c: "config"},
-  default: {config: "./config.json"}
+  boolean: ["force"],
+  alias: {c: "config", f: "force"},
+  default: {config: "./config.json", force: false}
 });
 
 const config = require(args.config);
@@ -163,7 +164,7 @@ function docOptions() {
 }
 
 function imageOptim() {
-  if (configOpts && configOpts.imageOptim) {
+  if ((configOpts && configOpts.imageOptim) || args.force) {
     return gulp.src("output/**/*.{gif,jpg,jpeg,png,svg}", {base: "./"})
     .pipe(imagemin())
     .pipe(gulp.dest("./"))
@@ -173,7 +174,7 @@ function imageOptim() {
 }
 
 function minifyCSS() {
-  if (configOpts && configOpts.minifyCSS) {
+  if ((configOpts && configOpts.minifyCSS) || args.force) {
     return gulp.src("output/**/*.css", {base: "./"})
     .pipe(cleanCSS())
     .pipe(gulp.dest("./"))     
@@ -190,5 +191,7 @@ exports.sanitize = sanitize;
 exports.classify = classify;
 exports.identify = identify;
 exports.append = append;
+exports.imageOptim = imageOptim;
+exports.minifyCSS = minifyCSS;
 exports.handleOptions = handleOptions;
 exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);

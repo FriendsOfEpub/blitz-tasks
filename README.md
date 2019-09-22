@@ -305,5 +305,7 @@ gulp identify append --series --config "./another-config.json"
 - identify
 - append
 - handleOptions
+- imageOptim (`--force` flag will bypass config.json)
+- minifyCSS (`--force` flag will bypass config.json)
 
 You can see a list of available scripts by running `gulp --tasks`.
