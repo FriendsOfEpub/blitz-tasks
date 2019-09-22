@@ -8,6 +8,10 @@ Blitz Tasks is a set of gulp scripts to automate (X)HTML markup changes and appl
 
 It is using JSON config files with a “search & replace” affordance. You search in documents using CSS selectors, then replace in a variety of ways e.g. changing the tag, removing the element, adding classes and ids, etc.
 
+## Alternatives
+
+We don’t know of any alternative right now but will warmly welcome any project duplicating features in the same or another language, and promote it ([we mean it](#why-nodejs)).
+
 ## Use Cases
 
 The idea behind Blitz Tasks is to modify the markup of a large amount of files with a “common pattern” – hence the config files. Here are a few use cases which drove its design:
@@ -316,7 +320,7 @@ You can see a list of available scripts by running `gulp --tasks`.
 
 Here’s a couple of questions that might pop up at some point in time, and attempts at an honest answer.
 
-### Why JSON for Config?
+### Why JSON for Config
 
 Because JSON is like the simplest thing to use in node. It is literally `require("config.json")`, you don’t even need to parse it.
 
@@ -334,7 +338,7 @@ You are completely free to replicate this project and its goals into any other l
 
 Do not hesitate to let us know so that we can advertise it in this ReadMe, as it would definitely benefit a larger amount of users, especially the ones who are not comfortable with node and JSON.
 
-### Can I Have a Script For X?
+### Can I Have a Script For X
 
 We welcome any idea, improvement, or fix that will benefit all users. 
 
@@ -342,7 +346,7 @@ A good rule of thumb is to request global utilities that can be used for other v
 
 Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
 
-### How Reliable Is This?
+### How Reliable Is This
 
 Of course a project relying on node/npm is only as reliable as its dependencies… and sh*t obviously happens.
 
