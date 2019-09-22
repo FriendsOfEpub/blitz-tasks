@@ -341,3 +341,9 @@ We welcome any idea, improvement, or fix that will benefit all users.
 A good rule of thumb is to request global utilities that can be used for other various use cases. On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
 
 Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
+
+### How Reliable Is This?
+
+Of course a project relying on node/npm is only as reliable as its dependencies… and sh*t obviously happens.
+
+That being said, those scripts helped maintainers go through very tight deadlines, ePub2 to EPUB3 upgrades, Word to EPUB3 conversions, etc. In the end, they saved hundreds, if not thousands, of work hours over the span of 2–3 years.
