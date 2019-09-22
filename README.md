@@ -2,6 +2,22 @@
 
 Automating markup changes with node, gulp and config files.
 
+## Use Cases
+
+The idea behind Markupatron is to modify the markup of a large amount of files with a “common pattern” – hence the config files. Here are a few use cases which drove its design:
+
+- you must modify dozens of older HTML files (e.g. backlist EPUB);
+- you have to systematically clean and improve the markup that is output by an authoring tool;
+- you want to upgrade a lots of files to HTML5 (or EPUB3);
+- you want to add `id` to all your headings, figures, notes, etc.;
+- you want to remove or rename a lot of classes;
+- you want to add elements e.g. stylesheet, metas, etc. to a large amount of files;
+- you want to use the heading of the document for its title;
+- you want to add a `lang` to hundreds of files;
+- etc.
+
+On top of that, Markupatron also provides image optimization and css minification as process options.
+
 ## Install
 
 First make sure you have nodeJS and npm installed. 
@@ -182,7 +198,9 @@ In this example, we are adding a stylesheet at the end of `<head>`.
 
 ### Options
 
-Finally, options allow you to define changes and optimization during the default (`gulp` or `gulp default`) process. It allows you to: 
+Finally, options allow you to define changes and optimizations during the default process (`gulp` or `gulp default`) process, or the `handleOptions` task – subtasks `docOptions`, `imageOptim` and `minifyCSS` are also available if needed.
+
+It allows you to: 
 
 - automate changing the document title based on headings found in a document;
 - set a default language for each document;
@@ -215,7 +233,7 @@ Property `docLang` expects a BCP-47 language tag and allows you to define a `lan
 
 If the document is XHTML, is will also add an `xml:lang` attribute.
 
-#### Image optimization
+#### Image Optimization
 
 Property `imageOptim` expects a boolean.
 
@@ -227,7 +245,7 @@ Property `imageOptim` expects a boolean.
 
 When set to `true`, all GIF, JPEG, PNG, and SVG images added to `input` will be optimized.
 
-#### Stylesheets minification
+#### Stylesheets Minification
 
 Property `minifyCSS` expects a boolean.
 
