@@ -29,25 +29,27 @@ function init() {
 }
 
 function retag() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (config.retag) {
+  if (config.retag) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         for (let x in config.retag) {
           $(config.retag[x].search).each((i, item) => {item.tagName = config.retag[x].replace});
         }
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function sanitize() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (config.sanitize) {
+  if (config.sanitize) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         for (let x in config.sanitize) {
           $(config.sanitize[x].search).each(function() {
             const xReplace = config.sanitize[x].replace;
@@ -61,94 +63,103 @@ function sanitize() {
             }
           });
         } 
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function classify() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (config.classify) {
+  if (config.classify) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         for (let x in config.classify) {
           $(config.classify[x].search).each(function() {
             $(this).removeAttr("class").addClass(config.classify[x].replace);
           });
         }
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function identify() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (config.identify) {
+  if (config.identify) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         for (let x in config.identify) {
           $(config.identify[x].search).each(function(i, item) {
             var id = config.identify[x].prefix + "-" + (i + 1);
             $(this).attr("id", id);
           });
         }
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function append() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (config.append) {
+  if (config.append) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         for (let x in config.append) {
           $(config.append[x].where).each(function() {
             $(this).append(config.append[x].what);
           });
         }
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function docOptions() {
-  return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-  .pipe(cheerio({
-    run: function ($, file) {
-      if (configOpts) {
+  if (configOpts && (configOpts.docTitle|| configOpts.docLang)) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
         if (configOpts.docTitle) {
           const title = $("title");
-          const headings = $(config.options.docTitle);
+          const headings = $(configOpts.docTitle);
           if (headings.length > 0) {
             if (title.length > 0) {
               title.text(headings.eq(0).text());
             } else {
-              $("head").append("\n\t<title>" + heading.text() + "</title>\n")
+              $("head").append("\n\t<title>" + headings.eq(0).text() + "</title>\n")
             }
           }
         }
-
         if (configOpts.docLang) {
-          $("html").attr("lang", config.options.docLang);
+          $("html").attr("lang", configOpts.docLang);
 
           if (file.path.indexOf(".xhtml") !== -1) {
-            $("html").attr("xml:lang", config.options.docLang);
+            $("html").attr("xml:lang", configOpts.docLang);
           }
         }
-      }
-    },
-    parserOptions: cheerioOpts
-  }))
-  .pipe(gulp.dest("./"))
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function imageOptim() {
@@ -157,7 +168,7 @@ function imageOptim() {
     .pipe(imagemin())
     .pipe(gulp.dest("./"))
   } else {
-    return;
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
   }
 }
 
@@ -167,7 +178,7 @@ function minifyCSS() {
     .pipe(cleanCSS())
     .pipe(gulp.dest("./"))     
   } else {
-    return;
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
   }
 }
 

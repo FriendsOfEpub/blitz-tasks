@@ -1,5 +1,5 @@
 {
-  "scope": "Another",
+  "scope": "Another Example",
   "version": "1.0.0",
   "retag": [
     {
@@ -48,5 +48,9 @@
       "search": "p", 
       "prefix": "para"
     }
-  ]
+  ],
+  "options": {
+    "docLang": "fr",
+    "minifyCSS": true
+  }
 }

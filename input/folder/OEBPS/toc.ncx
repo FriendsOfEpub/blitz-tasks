@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta content="XXXXXXXXXXXXXXXXX" name="dtb:uid"/>
+    <meta content="1" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Blitz Debug</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navPoint1">
+      <navLabel>
+        <text>Title Page</text>
+      </navLabel>
+      <content src="Text/titlepage.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint2">
+      <navLabel>
+        <text>Chapter 1</text>
+      </navLabel>
+      <content src="Text/chapter1.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint3">
+      <navLabel>
+        <text>Chapter 2</text>
+      </navLabel>
+      <content src="Text/chapter2.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>
