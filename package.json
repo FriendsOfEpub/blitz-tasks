@@ -15,7 +15,17 @@
     "optimization",
     "html"
   ],
-  "author": "Jiminy Panoz",
+  "author": {
+    "name": "Jiminy Panoz",
+    "url": "https://github.com/JayPanoz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FriendsOfEpub/blitz-tasks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FriendsOfEpub/blitz-tasks/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.0",

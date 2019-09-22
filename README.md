@@ -31,7 +31,7 @@ First make sure you have nodeJS and npm installed. If you don’t [install it](h
 Then either clone this repository:
 
 ```
-git clone https://github.com/JayPanoz/blitz-tasks.git
+git clone https://github.com/FriendsOfEpub/blitz-tasks.git
 ```
 
 Or “use this template” on github, which will create your own repository with the same files and folders.
