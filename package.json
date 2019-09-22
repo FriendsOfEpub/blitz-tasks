@@ -8,7 +8,12 @@
   "keywords": [
     "automation",
     "gulp",
-    "cheerio"
+    "cheerio",
+    "tasks",
+    "epub",
+    "markup",
+    "optimization",
+    "html"
   ],
   "author": "Jiminy Panoz",
   "license": "MIT",
