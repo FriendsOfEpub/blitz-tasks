@@ -309,3 +309,29 @@ gulp identify append --series --config "./another-config.json"
 - minifyCSS (`--force` flag will bypass config.json)
 
 You can see a list of available scripts by running `gulp --tasks`.
+
+## Future Addressed Questions (FAQ)
+
+Here’s a couple of questions that might pop up at some point in time, and attempts at an honest answer.
+
+### Why JSON for Config?
+
+Because JSON is like the simplest thing to use in node. It is literally `require("config.json")`, you don’t even need to parse it.
+
+That said, Pull Requests adding support for XML (using [xml2json](https://www.npmjs.com/package/xml2json) for instance), YAML, or anything else, will be greatly appreciated.
+
+If you have this need/requirement and can manage its addition to Blitz Tasks, do not hesitate if you have questions or need clarifications.
+
+### Why NodeJS
+
+Because that is the environment maintainers are comfortable with, hence the easiest way to create such a project. That’s it. If we had to care about all the twitter fights on XML vs. JSON vs. YAML, or technology X vs. technology Y in general, a lot of tools wouldn’t even exist.
+
+You are completely free to replicate this project and its goals into any other language/environment you prefer. Do not even hesitate to let us know so that we can advertise it in this ReadMe, because it would definitely benefit a larger amount of users, especially the ones who are not comfortable with node and JSON.
+
+### Can I Have a Script For X?
+
+We welcome any idea, improvement, or fix that will benefit all users. 
+
+A good rule of thumb is to request global utilities that can be used for other various use cases. On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
+
+Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
