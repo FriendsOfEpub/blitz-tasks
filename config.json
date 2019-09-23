@@ -91,6 +91,7 @@
     "docTitle": "h1, h2",
     "docLang": "fr",
     "imageOptim": true,
-    "minifyCSS": true
+    "minifyCSS": true,
+    "minifyJS": true
   }
 }

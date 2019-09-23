@@ -1,8 +1,9 @@
-const minimist = require('minimist');
+const minimist = require("minimist");
 const gulp = require("gulp");
 const cheerio = require("gulp-cheerio");
-const imagemin = require('gulp-imagemin');
-const cleanCSS = require('gulp-clean-css');
+const imagemin = require("gulp-imagemin");
+const cleanCSS = require("gulp-clean-css");
+const terser = require("gulp-minify");
 
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
@@ -183,7 +184,22 @@ function minifyCSS() {
   }
 }
 
-const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS);
+function minifyJS() {
+  if ((configOpts && configOpts.minifyJS) || args.force) {
+    return gulp.src("output/**/*.js", {base: "./"})
+    .pipe(terser({
+      ext: {
+        min: ".js"
+      },
+      noSource: true
+    }))
+    .pipe(gulp.dest("./"))     
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS, minifyJS);
 
 exports.init = init;
 exports.retag = retag;
@@ -193,5 +209,6 @@ exports.identify = identify;
 exports.append = append;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
+exports.minifyJS = minifyJS;
 exports.handleOptions = handleOptions;
 exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);

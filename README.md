@@ -4,7 +4,7 @@ Automating markup changes with node, gulp and config files.
 
 ## Abstract
 
-Blitz Tasks is a set of gulp scripts to automate (X)HTML markup changes and apply some useful optimizations (image optim + CSS minification). Files and folders you put in `input` will go through pipelines then show up in `output`.
+Blitz Tasks is a set of gulp scripts to automate (X)HTML markup changes and apply some useful optimizations (image optim + CSS/JS minification). Files and folders you put in `input` will go through pipelines then show up in `output`.
 
 It is using JSON config files with a “search & replace” affordance. You search in documents using CSS selectors, then replace in a variety of ways e.g. changing the tag, removing the element, adding classes and ids, etc.
 
@@ -26,7 +26,7 @@ The idea behind Blitz Tasks is to modify the markup of a large amount of files w
 - you want to add a `lang` to hundreds of files;
 - etc.
 
-On top of that, Blitz Tasks also provides image optimization and css minification as process options.
+On top of that, Blitz Tasks also provides image optimization and CSS/JS minification as process options.
 
 ## Install
 
@@ -213,7 +213,8 @@ With options you can:
 - automate replacing the document title with headings found in a document;
 - set a default language for each document;
 - optimize images;
-- minify stylesheets.
+- minify stylesheets;
+- minify scripts.
 
 #### Document Title
 
@@ -265,6 +266,18 @@ Property `minifyCSS` expects a boolean.
 
 When set to `true`, all stylesheets (`.css`) will be minified (a.k.a. removing comments, new lines, spaces, etc.).
 
+#### Scripts Minification
+
+Property `minifyJS` expects a boolean.
+
+```
+"options": {
+  "minifyJS": true
+}
+```
+
+When set to `true`, all scripts (`.js`) will be uglified (a.k.a. removing comments, new lines, spaces, etc.).
+
 ## Advanced Usage
 
 Blitz Tasks makes each one of its scripts available if you don’t want to run the default. Note you must `gulp init` before running those scripts.
@@ -275,13 +288,13 @@ If you intend to run multiple scripts, don’t forget to use the `--series` flag
 
 ### Examples
 
-First, init: 
+First, you must init a session: 
 
 ```
 gulp init
 ```
 
-`init` will copy everything from `input` into `output`. Indeed, Blitz Tasks doesn’t modify your input, just in case, and will only alter files it finds in the output folder.
+`init` will copy everything from `input` into `output`. Indeed, Blitz Tasks doesn’t modify your input, just in case, and will only alter files it finds in the output folder. This means you should think in terms of “sessions.” Each time you add to input, you should consider it a new session – `default` script automatically creates a new session every time it is run.
 
 This will only run the retag script with the existing config file:
 
@@ -313,20 +326,13 @@ gulp identify append --series --config "./another-config.json"
 - handleOptions
 - imageOptim (`--force` flag will bypass config.json)
 - minifyCSS (`--force` flag will bypass config.json)
+- minifyJS (`--force` flag will bypass config.json)
 
 You can see a list of available scripts by running `gulp --tasks`.
 
 ## Future Addressed Questions (FAQ)
 
 Here’s a couple of questions that might pop up at some point in time, and attempts at an honest answer.
-
-### Why JSON for Config
-
-Because JSON is like the simplest thing to use in node. It is literally `require("config.json")`, you don’t even need to parse it.
-
-That said, Pull Requests adding support for XML (using [xml2json](https://www.npmjs.com/package/xml2json) for instance), YAML, or anything else, will be greatly appreciated.
-
-If you have this need/requirement and can manage its addition to Blitz Tasks, do not hesitate if you have questions or need clarifications.
 
 ### Why NodeJS
 
@@ -337,6 +343,14 @@ If we had to care about all the twitter fights on XML vs. JSON vs. YAML, or tech
 You are completely free to replicate this project and its goals into any other language/environment you prefer. 
 
 Do not hesitate to let us know so that we can advertise it in this ReadMe, as it would definitely benefit a larger amount of users, especially the ones who are not comfortable with node and JSON.
+
+### Why JSON for Config
+
+Because JSON is like the simplest thing to use in node. It is literally `require("config.json")`, you don’t even need to parse it.
+
+That said, Pull Requests adding support for XML (using [xml2json](https://www.npmjs.com/package/xml2json) for instance), YAML, or anything else, will be greatly appreciated.
+
+If you have this need/requirement and can manage its addition to Blitz Tasks, do not hesitate if you have questions or need clarifications.
 
 ### Can I Have a Script For X
 
