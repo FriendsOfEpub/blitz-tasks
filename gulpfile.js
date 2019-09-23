@@ -1,13 +1,24 @@
-const minimist = require('minimist');
+const minimist = require("minimist");
 const gulp = require("gulp");
 const cheerio = require("gulp-cheerio");
-const imagemin = require('gulp-imagemin');
-const cleanCSS = require('gulp-clean-css');
+const imagemin = require("gulp-imagemin");
+const cleanCSS = require("gulp-clean-css");
+const terser = require("gulp-minify");
+const del = require("del");
+
+const utils = {
+  getProperty(string) {
+    return string.split("=")[0]
+  },
+  getValue(string) {
+    return string.split("=")[1].replace(/['"]+/g, "")
+  }
+};
 
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
   boolean: ["force"],
-  alias: {c: "config", f: "force"},
+  alias: {c: "config", F: "force"},
   default: {config: "./config.json", force: false}
 });
 
@@ -27,6 +38,19 @@ function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
   return gulp.src("input/**")
   .pipe(gulp.dest("output"))
+}
+
+function deleteFiles() {
+  if ((configOpts && configOpts.deleteFiles)) {
+    let filesToDelete = [];
+    for (let file in configOpts.deleteFiles) {
+      fileToDelete = "output/**/" + configOpts.deleteFiles[file];
+      filesToDelete.push(fileToDelete);
+    }
+    return del(filesToDelete);
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function retag() {
@@ -112,6 +136,27 @@ function identify() {
   }
 }
 
+function attributify() {
+  if (config.attributify) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        for (let x in config.attributify) {
+          $(config.attributify[x].search).each(function() {
+            const attribute = utils.getProperty(config.attributify[x].replace);
+            const value = utils.getValue(config.attributify[x].replace)
+            $(this).attr(attribute, value);
+          });
+        }
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
 function append() {
   if (config.append) {
     return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
@@ -183,15 +228,33 @@ function minifyCSS() {
   }
 }
 
-const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS);
+function minifyJS() {
+  if ((configOpts && configOpts.minifyJS) || args.force) {
+    return gulp.src("output/**/*.js", {base: "./"})
+    .pipe(terser({
+      ext: {
+        min: ".js"
+      },
+      noSource: true
+    }))
+    .pipe(gulp.dest("./"))     
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS, minifyJS);
 
 exports.init = init;
+exports.deleteFiles = deleteFiles;
 exports.retag = retag;
 exports.sanitize = sanitize;
 exports.classify = classify;
 exports.identify = identify;
+exports.attributify = attributify;
 exports.append = append;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
+exports.minifyJS = minifyJS;
 exports.handleOptions = handleOptions;
-exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);
+exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOptions);

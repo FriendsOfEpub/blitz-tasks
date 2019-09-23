@@ -39,6 +39,10 @@
     {
       "search": "[id^='x']",
       "replace": "id"
+    },
+    {
+      "search": "link[href$='blitz-kindle.css']",
+      "replace": "this"
     }
   ],
   "classify": [
@@ -73,6 +77,20 @@
       "replace": "para"
     }
   ],
+  "attributify": [
+    {
+      "search": "h1", 
+      "replace": "data-heading='1'"
+    },
+    {
+      "search": "h2", 
+      "replace": "data-heading=\"2\""
+    },
+    {
+      "search": "h1", 
+      "replace": "epub:type='title'"
+    }
+  ],
   "append": [
     {
       "where": "head",
@@ -80,7 +98,7 @@
     },
     {
       "where": "head",
-      "what": "<meta charset='UTF-8'/>"
+      "what": "<meta charset='utf-8'/>"
     },
     {
       "where": "body",
@@ -91,6 +109,8 @@
     "docTitle": "h1, h2",
     "docLang": "fr",
     "imageOptim": true,
-    "minifyCSS": true
+    "minifyCSS": true,
+    "minifyJS": true,
+    "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"]
   }
 }

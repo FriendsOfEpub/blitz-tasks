@@ -1,6 +1,6 @@
 {
   "name": "blitz-tasks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automating markup changes with node, gulp and config files",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,6 +32,7 @@
     "gulp-cheerio": "^0.6.3",
     "gulp-clean-css": "^4.2.0",
     "gulp-imagemin": "^6.1.0",
+    "gulp-minify": "^3.1.0",
     "minimist": "^1.2.0"
   }
 }
