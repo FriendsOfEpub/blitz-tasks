@@ -39,6 +39,10 @@
     {
       "search": "[id^='x']",
       "replace": "id"
+    },
+    {
+      "search": "link[href$='blitz-kindle.css']",
+      "replace": "this"
     }
   ],
   "classify": [
@@ -94,7 +98,7 @@
     },
     {
       "where": "head",
-      "what": "<meta charset='UTF-8'/>"
+      "what": "<meta charset='utf-8'/>"
     },
     {
       "where": "body",
