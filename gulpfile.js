@@ -4,6 +4,7 @@ const cheerio = require("gulp-cheerio");
 const imagemin = require("gulp-imagemin");
 const cleanCSS = require("gulp-clean-css");
 const terser = require("gulp-minify");
+const del = require("del");
 
 const utils = {
   getProperty(string) {
@@ -17,7 +18,7 @@ const utils = {
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
   boolean: ["force"],
-  alias: {c: "config", f: "force"},
+  alias: {c: "config", F: "force"},
   default: {config: "./config.json", force: false}
 });
 
@@ -37,6 +38,19 @@ function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
   return gulp.src("input/**")
   .pipe(gulp.dest("output"))
+}
+
+function deleteFiles() {
+  if ((configOpts && configOpts.deleteFiles)) {
+    let filesToDelete = [];
+    for (let file in configOpts.deleteFiles) {
+      fileToDelete = "output/**/" + configOpts.deleteFiles[file];
+      filesToDelete.push(fileToDelete);
+    }
+    return del(filesToDelete);
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
 }
 
 function retag() {
@@ -232,6 +246,7 @@ function minifyJS() {
 const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS, minifyJS);
 
 exports.init = init;
+exports.deleteFiles = deleteFiles;
 exports.retag = retag;
 exports.sanitize = sanitize;
 exports.classify = classify;
@@ -242,4 +257,4 @@ exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
 exports.handleOptions = handleOptions;
-exports.default = gulp.series(init, retag, sanitize, classify, identify, attributify, append, handleOptions);
+exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOptions);

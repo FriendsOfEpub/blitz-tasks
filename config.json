@@ -110,6 +110,7 @@
     "docLang": "fr",
     "imageOptim": true,
     "minifyCSS": true,
-    "minifyJS": true
+    "minifyJS": true,
+    "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"]
   }
 }

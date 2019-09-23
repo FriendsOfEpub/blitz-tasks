@@ -228,7 +228,8 @@ With options you can:
 - set a default language for each document;
 - optimize images;
 - minify stylesheets;
-- minify scripts.
+- minify scripts;
+- delete files.
 
 #### Document Title
 
@@ -292,6 +293,18 @@ Property `minifyJS` expects a boolean.
 
 When set to `true`, all scripts (`.js`) will be uglified (a.k.a. removing comments, new lines, spaces, etc.).
 
+#### Delete Files
+
+Property `deleteFiles` expects an array of strings (filenames).
+
+```
+"options": {
+  "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"]
+}
+```
+
+It makes sense to provide this option since you may remove `links`, `scripts`, etc. during the `sanitize` task. Note `default` will run this script immediately after `init` in order to save some useless processing – especially image optim and minification.
+
 ## Advanced Usage
 
 Blitz Tasks makes each one of its scripts available if you don’t want to run the default. Note you must `gulp init` before running those scripts.
@@ -332,6 +345,7 @@ gulp identify append --series --config "./another-config.json"
 
 - default
 - init
+- deleteFiles
 - retag
 - sanitize
 - classify
