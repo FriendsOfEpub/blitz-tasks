@@ -88,13 +88,14 @@ Blitz Tasks uses a JSON config file to modify your documents.
 
 It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, etc. in the future.
 
-There are 5 optional properties bound to the scripts Blitz Tasks currently offers:
+There are 6 optional properties bound to the scripts Blitz Tasks currently offers:
 
 1. retag
 2. sanitize 
 3. classify
 4. identify
-5. append
+5. attributify
+6. append
 
 Most of these scripts are conceptually “search & replace” for the Document Object Model (DOM), with CSS selectors as the syntax. However some may slightly differ so let’s see these scripts in detail.
 
@@ -174,7 +175,7 @@ Classify lets you add a class or overwrite an existing one. This means it will f
 }
 ```
 
-In this example, we search for `h1` after `figure` and add a `no-margin-top` class. If there were existing classes, they will be overwritten.
+In this example, we search for `h1` after `figure` and add a `no-margin-top` class. If there were existing classes, they would be overwritten.
 
 ### Identify
 
@@ -187,7 +188,20 @@ Identify lets you iterate over elements and add an identifier. Here `replace` is
 }
 ```
 
-In this example, each paragraph will get an `id` with prefix `para` e.g. first paragraph in the doc will be `para-1`, second will be `para-2` and so on. If there were existing ids, they will be overwritten.
+In this example, each paragraph will get an `id` with prefix `para` e.g. first paragraph in the doc will be `para-1`, second will be `para-2` and so on. If there were existing ids, they would be overwritten.
+
+### Attributify
+
+Attributify lets you add an attribute (property + value) or overwrite an existing one.
+
+```
+{
+  "search": "h1", 
+  "replace": "data-heading='1'"
+},
+```
+
+In this example, we search for `h1` and add a `data-heading` attribute whose value is `1`. If there was an existing `data-heading`, it would be overwritten.
 
 ### Append
 

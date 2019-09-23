@@ -73,6 +73,20 @@
       "replace": "para"
     }
   ],
+  "attributify": [
+    {
+      "search": "h1", 
+      "replace": "data-heading='1'"
+    },
+    {
+      "search": "h2", 
+      "replace": "data-heading=\"2\""
+    },
+    {
+      "search": "h1", 
+      "replace": "epub:type='title'"
+    }
+  ],
   "append": [
     {
       "where": "head",

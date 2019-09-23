@@ -5,6 +5,15 @@ const imagemin = require("gulp-imagemin");
 const cleanCSS = require("gulp-clean-css");
 const terser = require("gulp-minify");
 
+const utils = {
+  getProperty(string) {
+    return string.split("=")[0]
+  },
+  getValue(string) {
+    return string.split("=")[1].replace(/['"]+/g, "")
+  }
+};
+
 const args = minimist(process.argv.slice(2), {
   string: ["config"],
   boolean: ["force"],
@@ -113,6 +122,27 @@ function identify() {
   }
 }
 
+function attributify() {
+  if (config.attributify) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        for (let x in config.attributify) {
+          $(config.attributify[x].search).each(function() {
+            const attribute = utils.getProperty(config.attributify[x].replace);
+            const value = utils.getValue(config.attributify[x].replace)
+            $(this).attr(attribute, value);
+          });
+        }
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
 function append() {
   if (config.append) {
     return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
@@ -206,9 +236,10 @@ exports.retag = retag;
 exports.sanitize = sanitize;
 exports.classify = classify;
 exports.identify = identify;
+exports.attributify = attributify;
 exports.append = append;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
 exports.handleOptions = handleOptions;
-exports.default = gulp.series(init, retag, sanitize, classify, identify, append, handleOptions);
+exports.default = gulp.series(init, retag, sanitize, classify, identify, attributify, append, handleOptions);
