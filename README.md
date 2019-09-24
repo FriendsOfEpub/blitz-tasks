@@ -2,6 +2,27 @@
 
 Automating markup changes with node, gulp and config files.
 
+## Toc
+
+- [Abstract](#abstract)
+- [Alternatives](#alternatives)
+- [Use Cases](#use-cases)
+- [Install](#install)
+- [Usage](#usage)
+    - [Examples](#examples)
+- [Config](#config)
+    - [Retag](#retag)
+    - [Sanitize](#sanitize)
+    - [Classify](#classify)
+    - [Identify](#identify)
+    - [Attributify](#attributify)
+    - [Append](#append)
+    - [Options](#options)
+- [Advanced Usage](#advanced-usage)
+    - [Examples](#examples-1)
+    - [Available Scripts](#available-scripts)
+- [FAQ](#future-addressed-questions-faq)
+
 ## Abstract
 
 Blitz Tasks is a set of gulp scripts to automate (X)HTML markup changes and apply some useful optimizations (image optim + CSS/JS minification). Files and folders you put in `input` will go through pipelines then show up in `output`.
@@ -88,7 +109,7 @@ Blitz Tasks uses a JSON config file to modify your documents.
 
 It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, etc. in the future.
 
-There are 6 optional properties bound to the scripts Blitz Tasks currently offers:
+There are optional properties bound to the scripts Blitz Tasks currently offers:
 
 1. retag
 2. sanitize 
@@ -99,7 +120,7 @@ There are 6 optional properties bound to the scripts Blitz Tasks currently offer
 
 Most of these scripts are conceptually “search & replace” for the Document Object Model (DOM), with CSS selectors as the syntax. However some may slightly differ so let’s see these scripts in detail.
 
-Technical note: the value of those 5 properties is an array of objects whose keys differ depending on the script.
+Technical note: the value of those properties is an array of objects whose keys differ depending on the script.
 
 You can take a look at the [example config](config.json) for more examples.
 
@@ -387,6 +408,14 @@ We welcome any idea, improvement, or fix that will benefit all users.
 A good rule of thumb is to request global utilities that can be used for other various use cases. On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
 
 Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
+
+### Which Features May Be Prioritized If I Want To Contribute
+
+The most obvious one would be adding an `epub` option, that could indeed help:
+
+- Add and remove files from the package.opf
+- Unzip EPUB in input
+- Rezip EPUB in output
 
 ### How Reliable Is This
 
