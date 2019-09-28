@@ -111,6 +111,9 @@
     "imageOptim": true,
     "minifyCSS": true,
     "minifyJS": true,
+    "prettyHTML": true,
+    "prettyCSS": false,
+    "prettyJS": false,
     "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"]
   }
 }

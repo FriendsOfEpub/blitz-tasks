@@ -4,6 +4,7 @@ const cheerio = require("gulp-cheerio");
 const imagemin = require("gulp-imagemin");
 const cleanCSS = require("gulp-clean-css");
 const terser = require("gulp-minify");
+const pretty = require("gulp-beautify");
 const del = require("del");
 
 const utils = {
@@ -24,6 +25,8 @@ const args = minimist(process.argv.slice(2), {
 
 const config = require(args.config);
 
+const configOpts = config.options;
+
 const cheerioOpts = {
   xmlMode: true,
   decodeEntities: false,
@@ -32,7 +35,10 @@ const cheerioOpts = {
   recognizeSelfClosing: true
 }
 
-const configOpts = config.options;
+const prettyOptions = {
+  "indent_size": 2,
+  "max_preserve_newlines": 1
+}
 
 function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
@@ -243,7 +249,41 @@ function minifyJS() {
   }
 }
 
-const handleOptions = gulp.parallel(docOptions, imageOptim, minifyCSS, minifyJS);
+function prettyHTML() {
+  if ((configOpts && configOpts.prettyHTML) || args.force) {
+    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    .pipe(pretty.html(prettyOptions))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+function prettyCSS() {
+  if ((configOpts && (configOpts.prettyCSS && !configOpts.minifyCSS)) || args.force) {
+    return gulp.src("output/**/*.css", {base: "./"})
+    .pipe(pretty.css(prettyOptions))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+function prettyJS() {
+  if ((configOpts && (configOpts.prettyJS && !configOpts.minifyJS)) || args.force) {
+    return gulp.src("output/**/*.js", {base: "./"})
+    .pipe(pretty.js(prettyOptions))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+const handleHTML = gulp.series(docOptions, prettyHTML);
+const handleCSS = gulp.series(prettyCSS, minifyCSS);
+const handleJS = gulp.series(prettyJS, minifyJS);
+
+const handleOptions = gulp.parallel(handleHTML, imageOptim, handleCSS, handleJS);
 
 exports.init = init;
 exports.deleteFiles = deleteFiles;
@@ -256,5 +296,8 @@ exports.append = append;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
+exports.prettyHTML = prettyHTML;
+exports.prettyCSS = prettyCSS;
+exports.prettyJS = prettyJS;
 exports.handleOptions = handleOptions;
 exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOptions);

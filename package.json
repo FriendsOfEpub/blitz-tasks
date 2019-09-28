@@ -1,9 +1,11 @@
 {
   "name": "blitz-tasks",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Automating markup changes with node, gulp and config files",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "optim": "gulp init && gulp imageOptim minifyCSS minifyJS",
+    "pretty": "gulp init && gulp prettyHTML prettyCSS prettyJS",
+    "clean": "gulp init retag sanitize --series"
   },
   "keywords": [
     "automation",
@@ -29,6 +31,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^4.0.0",
+    "gulp-beautify": "^3.0.0",
     "gulp-cheerio": "^0.6.3",
     "gulp-clean-css": "^4.2.0",
     "gulp-imagemin": "^6.1.0",
