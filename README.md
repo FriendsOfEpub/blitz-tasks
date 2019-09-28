@@ -429,6 +429,8 @@ gulp identify append --series --config "./another-config.json"
 
 You can see a list of available scripts by running `gulp --tasks`.
 
+If you want examples of how you can use a subset of those scripts with npm, take a look at [`scripts` in package.json](package.json) (e.g. `npm run optim`, `npm run clean`, etc.).
+
 ## Future Addressed Questions (FAQ)
 
 Here’s a couple of questions that might pop up at some point in time, and attempts at an honest answer.
