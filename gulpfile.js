@@ -7,9 +7,25 @@ const terser = require("gulp-minify");
 const pretty = require("gulp-beautify");
 const del = require("del");
 
+const utils = {
+  getProperty(string) {
+    return string.split("=")[0]
+  },
+  getValue(string) {
+    return string.split("=")[1].replace(/['"]+/g, "")
+  }
+};
+
+const args = minimist(process.argv.slice(2), {
+  string: ["config", "input", "output"],
+  boolean: ["force"],
+  alias: {c: "config", F: "force", i: "input", o: "output"},
+  default: {config: "./config.json", force: false, input: "input", output: "output"}
+});
+
 const filePaths = {
-  input: "input",
-  output: "output",
+  input: args.input,
+  output: args.output,
   get html() {
     return this.output + "/**/*.{xhtml,html}"
   },
@@ -23,22 +39,6 @@ const filePaths = {
     return this.output + "/**/*.{gif,jpg,jpeg,png,svg}"
   }
 }
-
-const utils = {
-  getProperty(string) {
-    return string.split("=")[0]
-  },
-  getValue(string) {
-    return string.split("=")[1].replace(/['"]+/g, "")
-  }
-};
-
-const args = minimist(process.argv.slice(2), {
-  string: ["config"],
-  boolean: ["force"],
-  alias: {c: "config", F: "force"},
-  default: {config: "./config.json", force: false}
-});
 
 const config = require(args.config);
 
