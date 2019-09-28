@@ -20,6 +20,7 @@ Automating markup changes with node, gulp and config files.
     - [Options](#options)
 - [Advanced Usage](#advanced-usage)
     - [Examples](#examples-1)
+    - [CLI Options](#cli-options)
     - [Available Scripts](#available-scripts)
 - [FAQ](#future-addressed-questions-faq)
 
@@ -408,6 +409,40 @@ Finally, this will run identify and append with a custom config:
 ```
 gulp identify append --series --config "./another-config.json"
 ```
+
+### CLI options
+
+Blitz Tasks offers a bunch of command-line options you can pass as arguments.
+
+#### Config File
+
+You can use `--config` or `-c` to use a custom config file.
+
+```
+gulp -c "./another-config.json"
+```
+
+In this example, Blitz Tasks will use the config file `another-config.json` to process documents, stylesheets, and scripts.
+
+#### Input and Output
+
+You can define what the `--input` (or `-i`) and `--output` (or `-o`) should be for a session. It is recommended to use both so that nothing in the default `output` folder ends up being lost/overwritten.
+
+```
+gulp -i "input/folder" -o "test"
+```
+
+In this example, Blitz Tasks will copy files from `input/folder` into `test` and process documents. This can be useful for scoping processes to publishers/collections/etc, especially when using a custom config file.
+
+#### Force Minification/Prettifying
+
+For the optimization and beautification scripts, it may be useful to `--force` (or `-F`) as this will ignore the config file options.
+
+```
+gulp imageOptim minifyCSS minifyJS --force
+```
+
+In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` scripts while ignoring `options` in `config.json`. Files will be optimized even if those options are not set to `true`.
 
 ### Available Scripts
 

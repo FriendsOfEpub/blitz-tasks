@@ -17,11 +17,28 @@ const utils = {
 };
 
 const args = minimist(process.argv.slice(2), {
-  string: ["config"],
+  string: ["config", "input", "output"],
   boolean: ["force"],
-  alias: {c: "config", F: "force"},
-  default: {config: "./config.json", force: false}
+  alias: {c: "config", F: "force", i: "input", o: "output"},
+  default: {config: "./config.json", force: false, input: "input", output: "output"}
 });
+
+const filePaths = {
+  input: args.input,
+  output: args.output,
+  get html() {
+    return this.output + "/**/*.{xhtml,html}"
+  },
+  get css() {
+    return this.output + "/**/*.css"
+  },
+  get js() {
+    return this.output + "/**/*.js"
+  },
+  get images() {
+    return this.output + "/**/*.{gif,jpg,jpeg,png,svg}"
+  }
+}
 
 const config = require(args.config);
 
@@ -42,15 +59,15 @@ const prettyOpts = {
 
 function init() {
   console.log("The scope of this config file is: " + config.scope, config.version);
-  return gulp.src("input/**")
-  .pipe(gulp.dest("output"))
+  return gulp.src(filePaths.input + "/**")
+  .pipe(gulp.dest(filePaths.output))
 }
 
 function deleteFiles() {
   if ((configOpts && configOpts.deleteFiles)) {
     let filesToDelete = [];
     for (let file in configOpts.deleteFiles) {
-      fileToDelete = "output/**/" + configOpts.deleteFiles[file];
+      fileToDelete = filePaths.output + "/**/" + configOpts.deleteFiles[file];
       filesToDelete.push(fileToDelete);
     }
     return del(filesToDelete);
@@ -61,7 +78,7 @@ function deleteFiles() {
 
 function retag() {
   if (config.retag) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.retag) {
@@ -78,7 +95,7 @@ function retag() {
 
 function sanitize() {
   if (config.sanitize) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.sanitize) {
@@ -105,7 +122,7 @@ function sanitize() {
 
 function classify() {
   if (config.classify) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.classify) {
@@ -124,7 +141,7 @@ function classify() {
 
 function identify() {
   if (config.identify) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.identify) {
@@ -144,7 +161,7 @@ function identify() {
 
 function attributify() {
   if (config.attributify) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.attributify) {
@@ -165,7 +182,7 @@ function attributify() {
 
 function append() {
   if (config.append) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         for (let x in config.append) {
@@ -184,7 +201,7 @@ function append() {
 
 function docOptions() {
   if (configOpts && (configOpts.docTitle || configOpts.docLang)) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
         if (configOpts.docTitle) {
@@ -216,7 +233,7 @@ function docOptions() {
 
 function imageOptim() {
   if ((configOpts && configOpts.imageOptim) || args.force) {
-    return gulp.src("output/**/*.{gif,jpg,jpeg,png,svg}", {base: "./"})
+    return gulp.src(filePaths.images, {base: "./"})
     .pipe(imagemin())
     .pipe(gulp.dest("./"))
   } else {
@@ -226,7 +243,7 @@ function imageOptim() {
 
 function minifyCSS() {
   if ((configOpts && configOpts.minifyCSS) || args.force) {
-    return gulp.src("output/**/*.css", {base: "./"})
+    return gulp.src(filePaths.css, {base: "./"})
     .pipe(cleanCSS())
     .pipe(gulp.dest("./"))     
   } else {
@@ -236,7 +253,7 @@ function minifyCSS() {
 
 function minifyJS() {
   if ((configOpts && configOpts.minifyJS) || args.force) {
-    return gulp.src("output/**/*.js", {base: "./"})
+    return gulp.src(filePaths.js, {base: "./"})
     .pipe(terser({
       ext: {
         min: ".js"
@@ -251,7 +268,7 @@ function minifyJS() {
 
 function prettyHTML() {
   if ((configOpts && configOpts.prettyHTML) || args.force) {
-    return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
+    return gulp.src(filePaths.html, {base: "./"})
     .pipe(pretty.html(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
@@ -261,7 +278,7 @@ function prettyHTML() {
 
 function prettyCSS() {
   if ((configOpts && (configOpts.prettyCSS && !configOpts.minifyCSS)) || args.force) {
-    return gulp.src("output/**/*.css", {base: "./"})
+    return gulp.src(filePaths.css, {base: "./"})
     .pipe(pretty.css(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
@@ -271,7 +288,7 @@ function prettyCSS() {
 
 function prettyJS() {
   if ((configOpts && (configOpts.prettyJS && !configOpts.minifyJS)) || args.force) {
-    return gulp.src("output/**/*.js", {base: "./"})
+    return gulp.src(filePaths.js, {base: "./"})
     .pipe(pretty.js(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
