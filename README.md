@@ -247,9 +247,10 @@ With options you can:
 
 - automate replacing the document title with headings found in a document;
 - set a default language for each document;
+- prettify the markup of each document;
 - optimize images;
-- minify stylesheets;
-- minify scripts;
+- minify or prettify stylesheets;
+- minify or prettify scripts;
 - delete files.
 
 #### Document Title
@@ -314,6 +315,52 @@ Property `minifyJS` expects a boolean.
 
 When set to `true`, all scripts (`.js`) will be uglified (a.k.a. removing comments, new lines, spaces, etc.).
 
+#### HTML Prettifying
+
+Property `prettyHTML` expects a boolean.
+
+```
+"options": {
+  "prettyHTML": true
+}
+```
+
+When set to `true`, all documents (`.html` + `.xhtml`) will be prettified (a.k.a. consistent indents, removing useless lines, etc.).
+
+You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+
+#### CSS Prettifying
+
+Property `prettyCSS` expects a boolean.
+
+```
+"options": {
+  "prettyCSS": true
+}
+```
+
+When set to `true`, all stylesheets (`.css`) will be prettified (a.k.a. consistent indents, removing useless lines, etc.).
+
+**Note:** This option is incompatible with `minifyCSS` and will be overridden if `minifyCSS` is set to `true`.
+
+You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+
+#### JS Prettifying
+
+Property `prettyJS` expects a boolean.
+
+```
+"options": {
+  "prettyJS": true
+}
+```
+
+When set to `true`, all scripts (`.js`) will be prettified (a.k.a. consistent indents, removing useless lines, etc.).
+
+**Note:** This option is incompatible with `minifyJS` and will be overridden if `minifyJS` is set to `true`.
+
+You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+
 #### Delete Files
 
 Property `deleteFiles` expects an array of strings (filenames).
@@ -376,6 +423,9 @@ gulp identify append --series --config "./another-config.json"
 - imageOptim (`--force` flag will bypass config.json)
 - minifyCSS (`--force` flag will bypass config.json)
 - minifyJS (`--force` flag will bypass config.json)
+- prettyHTML (`--force` flag will bypass config.json)
+- prettyCSS (`--force` flag will bypass config.json)
+- prettyJS (`--force` flag will bypass config.json)
 
 You can see a list of available scripts by running `gulp --tasks`.
 

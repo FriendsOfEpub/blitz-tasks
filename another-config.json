@@ -41,6 +41,9 @@
   ],
   "options": {
     "docLang": "it",
-    "minifyCSS": true
+    "minifyJS": true,
+    "prettyHTML": false,
+    "prettyCSS": true,
+    "prettyJS": true
   }
 }
