@@ -327,7 +327,7 @@ Property `prettyHTML` expects a boolean.
 
 When set to `true`, all documents (`.html` + `.xhtml`) will be prettified (a.k.a. consistent indents, removing useless lines, etc.).
 
-You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+You can change `prettyOpts` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
 
 #### CSS Prettifying
 
@@ -343,7 +343,7 @@ When set to `true`, all stylesheets (`.css`) will be prettified (a.k.a. consiste
 
 **Note:** This option is incompatible with `minifyCSS` and will be overridden if `minifyCSS` is set to `true`.
 
-You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+You can change `prettyOpts` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
 
 #### JS Prettifying
 
@@ -359,7 +359,7 @@ When set to `true`, all scripts (`.js`) will be prettified (a.k.a. consistent in
 
 **Note:** This option is incompatible with `minifyJS` and will be overridden if `minifyJS` is set to `true`.
 
-You can change `prettyOptions` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
+You can change `prettyOpts` in [gulpfile.js](gulpfile.js) if you want to [customize how files are prettified](https://github.com/beautify-web/js-beautify#options).
 
 #### Delete Files
 

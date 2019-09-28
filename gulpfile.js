@@ -35,7 +35,7 @@ const cheerioOpts = {
   recognizeSelfClosing: true
 }
 
-const prettyOptions = {
+const prettyOpts = {
   "indent_size": 2,
   "max_preserve_newlines": 1
 }
@@ -252,7 +252,7 @@ function minifyJS() {
 function prettyHTML() {
   if ((configOpts && configOpts.prettyHTML) || args.force) {
     return gulp.src("output/**/*.{xhtml,html}", {base: "./"})
-    .pipe(pretty.html(prettyOptions))
+    .pipe(pretty.html(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
     return Promise.resolve("Config doesn’t use this task, it was ignored.");
@@ -262,7 +262,7 @@ function prettyHTML() {
 function prettyCSS() {
   if ((configOpts && (configOpts.prettyCSS && !configOpts.minifyCSS)) || args.force) {
     return gulp.src("output/**/*.css", {base: "./"})
-    .pipe(pretty.css(prettyOptions))
+    .pipe(pretty.css(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
     return Promise.resolve("Config doesn’t use this task, it was ignored.");
@@ -272,7 +272,7 @@ function prettyCSS() {
 function prettyJS() {
   if ((configOpts && (configOpts.prettyJS && !configOpts.minifyJS)) || args.force) {
     return gulp.src("output/**/*.js", {base: "./"})
-    .pipe(pretty.js(prettyOptions))
+    .pipe(pretty.js(prettyOpts))
     .pipe(gulp.dest("./"))
   } else {
     return Promise.resolve("Config doesn’t use this task, it was ignored.");
