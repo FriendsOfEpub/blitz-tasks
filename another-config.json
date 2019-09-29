@@ -39,6 +39,24 @@
       "replace": "para"
     }
   ],
+  "attributify": [
+    {
+      "search": "[epub\\:type='cover'] img",
+      "replace": "role='doc-cover'"
+    },
+    {
+      "search": "section[epub\\:type='chapter']",
+      "replace": "role='doc-chapter'"
+    },
+    {
+      "search": "nav[epub\\:type='toc']",
+      "replace": "role='doc-toc'"
+    },
+    {
+      "search": "nav[epub\\:type='landmarks'] ol",
+      "replace": "role='directory'"
+    }
+  ],
   "options": {
     "docLang": "it",
     "minifyJS": true,
