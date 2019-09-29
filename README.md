@@ -2,6 +2,8 @@
 
 Automating markup changes with node, gulp and config files.
 
+This tool is part of the [Blitz Framework](http://friendsofepub.github.io/Blitz/).
+
 ## Toc
 
 - [Abstract](#abstract)
@@ -504,8 +506,20 @@ The most obvious one would be adding an `epub` option, that could indeed help:
 - Unzip EPUB in input
 - Rezip EPUB in output
 
+### Which Features Have Been Considered But Not Implemented
+
+Blitz Tasks shouldn’t be considered the be-all and end-all of all ebook production issues. In particular, everything text is out of scope – there are better and more reliable tools for that.
+
+In other words, we won’t implement any textual search and replace (e.g. regex), or automatic typography improvements (e.g. smart quotes, symbols, etc.).
+
+It’s also first and foremost a template you can use to kickstart your own projects. You can think of it as a toolbox instead of a finished product.
+
+So we won’t provide an option to upgrade ePub2 to EPUB3 for instance, because this is a set of smaller tasks (e.g. changing the doctype, updating metadata in the `.opf`, creating a nav out of `.ncx`, etc.). At most, Blitz Tasks should offer some scripts to handle these smaller issues, and not a complete solution to the upgrade.
+
+Obviously, you can implement these features yourself, and we will gladly list them in this ReadMe if you do.
+
 ### How Reliable Is This
 
-Of course a project relying on node/npm is only as reliable as its dependencies… and sh*t obviously happens.
+Of course a project is only as reliable as its dependencies… and sh*t obviously happens.
 
 That being said, those scripts helped maintainers go through very tight deadlines, ePub2 to EPUB3 upgrades, Word to EPUB3 conversions, etc. In the end, they saved hundreds, if not thousands, of work hours over the span of 2–3 years.
