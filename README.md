@@ -516,7 +516,7 @@ It’s also first and foremost a template you can use to kickstart your own proj
 
 So we won’t provide an option to upgrade ePub2 to EPUB3 for instance, because this is a set of smaller tasks (e.g. changing the doctype, updating metadata in the `.opf`, creating a nav out of `.ncx`, etc.). At most, Blitz Tasks should offer some scripts to handle these smaller issues, and not a complete solution to the upgrade.
 
-Obviously, you can implement these features yourself, and we will gladly list them in this ReadMe if you do.
+Obviously, you can implement these features yourself, and we will gladly list your repo in this ReadMe if you do.
 
 ### How Reliable Is This
 
