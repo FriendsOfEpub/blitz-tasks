@@ -5,7 +5,8 @@
   "scripts": {
     "optim": "gulp init && gulp imageOptim minifyCSS minifyJS --force",
     "pretty": "gulp init && gulp prettyHTML prettyCSS prettyJS",
-    "clean": "gulp init retag sanitize --series"
+    "clean": "gulp init retag sanitize --series",
+    "epub2aria": "gulp attributify -c ./another-config.json"
   },
   "keywords": [
     "automation",
