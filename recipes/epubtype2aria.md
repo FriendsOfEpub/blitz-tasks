@@ -8,17 +8,17 @@ We will make use of the `sanitize` and `attributify` scripts here.
 
 [Epub Type To ARIA Role Authoring Guide](https://idpf.github.io/epub-guides/epub-aria-authoring/#sec-mappings) will be our reference document for mapping. 
 
-## Remove Existing Faulty Roles
+## Remove Faulty Roles
 
 Let’s imagine you just ran EPUBCheck and got an awful lot of issues related to ARIA Roles. Indeed, ARIA roles are more restricted in where they can be used than EPUB’s structural semantics, and maybe a bunch of your files are using some ARIA roles on elements that are actually not allowed.
 
 We will use the `sanitize` script in our config file to handle that. All examples are inspired by issues that were recorded in EPUBCheck’s issue tracker.
 
-Let’s start by creating an `epubtype2aria.json` config file. We will first define a meaningful scope and version, and initialize `sanitize`.
+Let’s start by creating an `epub2aria.json` config file. We will first define a meaningful scope and version, and initialize `sanitize`.
 
 ```
 {
-  "scope": "epubtype2aria",
+  "scope": "epub2aria",
   "version": "1.0.0",
   "sanitize": []
 }
@@ -30,7 +30,7 @@ For instance, you can’t have `doc-epigraph` on `section`:
 
 ```
 {
-  "scope": "epubtype2aria",
+  "scope": "epub2aria",
   "version": "1.0.0",
   "sanitize": [
     {
@@ -45,7 +45,7 @@ You can’t either have a `doc-footnote` for `section`. But instead of adding an
 
 ```
 {
-  "scope": "epubtype2aria",
+  "scope": "epub2aria",
   "version": "1.0.0",
   "sanitize": [
     {
@@ -60,7 +60,7 @@ Finally, there’s the infamous `doc-cover`, which is very complex in the sense 
 
 ```
 {
-  "scope": "epubtype2aria",
+  "scope": "epub2aria",
   "version": "1.0.0",
   "sanitize": [
     {
@@ -127,7 +127,7 @@ And now cover images, if you are sure they map to the `.opf`’s `property`.
 
 ```
 {
-  "search": ":not(img)[epub\\:type='cover'] img]",
+  "search": ":not(img)[epub\\:type='cover'] img",
   "replace": "role='doc-cover'"
 }
 ```
@@ -161,7 +161,7 @@ Our `attributify` script’s config should now look like:
       "replace": "role='doc-footnote'"
     },
     {
-      "search": ":not(img)[epub\\:type='cover'] img]",
+      "search": ":not(img)[epub\\:type='cover'] img",
       "replace": "role='doc-cover'"
     },
     {
@@ -176,11 +176,11 @@ You can probably guess why Blitz Tasks would not be the best option if you had t
 
 ## Recap
 
-It’s worth mentioning you need a knowledge of markup to handle this conversion efficiently but the config file you will end up may look like this: 
+It’s worth mentioning you need a knowledge of the markup you modify to handle this conversion efficiently. But the config file you will end up may look like this: 
 
 ```
 {
-  "scope": "epubtype2aria",
+  "scope": "epub2aria",
   "version": "1.0.0",
   "sanitize": [
     {
@@ -198,7 +198,7 @@ It’s worth mentioning you need a knowledge of markup to handle this conversion
       "replace": "role='doc-footnote'"
     },
     {
-      "search": ":not(img)[epub\\:type='cover'] img]",
+      "search": ":not(img)[epub\\:type='cover'] img",
       "replace": "role='doc-cover'"
     },
     {
@@ -209,12 +209,12 @@ It’s worth mentioning you need a knowledge of markup to handle this conversion
 }
 ```
 
-Which may well be reasonable if you are scoping config files to publishers or collections, and there are visible markup patterns you can use to search and replace dozens or even hundreds of files.
+That may well be reasonable if you are scoping config files to publishers or collections, and there are visible markup patterns you can use to search and replace dozens or even hundreds of files.
 
 Run:
 
 ```
-gulp -c "./epubtype2aria.json"
+gulp -c "./epub2aria.json"
 ```
 
 and voilà. All the (X)HTML files in your input folder now have proper ARIA Roles.
