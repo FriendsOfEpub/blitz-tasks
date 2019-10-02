@@ -6,3 +6,4 @@ The following guides should explain how the global utilities Blitz Tasks provide
 
 - [Clean The Export From An Authoring Tool](clean-output.md)
 - [Convert EPUB Type To ARIA DPUB Roles](epubtype2aria.md)
+- [Use The First Heading of The Document for The Head’s Title](doc-title.md)
