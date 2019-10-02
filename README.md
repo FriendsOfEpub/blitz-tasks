@@ -494,7 +494,7 @@ If you have this need/requirement and can manage its addition to Blitz Tasks, do
 
 We welcome any idea, improvement, or fix that will benefit all users. 
 
-A good rule of thumb is to request global utilities that can be used for other various use cases. On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
+A good rule of thumb is to request global utilities that can be used for other various use cases ([see recipes folder](recipes/readme.md)). On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
 
 Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
 
