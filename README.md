@@ -20,6 +20,7 @@ This tool is part of the [Blitz Framework](http://friendsofepub.github.io/Blitz/
     - [Attributify](#attributify)
     - [Append](#append)
     - [Options](#options)
+- [Recipes](#recipes)
 - [Advanced Usage](#advanced-usage)
     - [Examples](#examples-1)
     - [CLI Options](#cli-options)
@@ -376,6 +377,10 @@ Property `deleteFiles` expects an array of strings (filenames).
 
 It makes sense to provide this option since you may remove `links`, `scripts`, etc. during the `sanitize` task. Note `default` will run this script immediately after `init` in order to save some useless processing – especially image optim and minification.
 
+## Recipes
+
+We have [a couple of guides](recipes/readme.md) demonstrating how to use these scripts in config files addressing more specific workflow issues. Do not hesitate to add yours!
+
 ## Advanced Usage
 
 Blitz Tasks makes each one of its scripts available if you don’t want to run the default. Note you must `gulp init` before running those scripts.
@@ -494,7 +499,7 @@ If you have this need/requirement and can manage its addition to Blitz Tasks, do
 
 We welcome any idea, improvement, or fix that will benefit all users. 
 
-A good rule of thumb is to request global utilities that can be used for other various use cases ([see recipes folder](recipes/readme.md)). On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
+A good rule of thumb is to request global utilities that can be used for other various use cases ([see recipes](recipes/readme.md)). On the opposite, requesting something to fix one of your own workflow issues will be problematic, and likely not considered if not a very common issue for users.
 
 Please note this repository is also a GitHub template so we’ve even made it easier for people to adjust it to their workflow issues.
 

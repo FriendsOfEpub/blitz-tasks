@@ -14,16 +14,16 @@ Without further ado, let’s see a sample of the markup we have to improve:
 <div id="_idContainer021" class="_idGenObjectStyleOverride-1">
 
   <div class="_idGenObjectLayout-1">
-	  <div id="_idContainer001">
-		  <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
-	  </div>
+    <div id="_idContainer001">
+      <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
+    </div>
   </div>
 			
-	<p class="chapter_title">Title of chapter</p>
+  <p class="chapter_title">Title of chapter</p>
 
-	<p class="first"><span class="_idGenDropcap-1">T</span><span class="CharOverride-9">ext text text text text.</p>
+  <p class="first"><span class="_idGenDropcap-1">T</span><span class="CharOverride-9">ext text text text text.</p>
 
-	<p class="Normal-4"><span class="CharOverride-10">Text text text text text</span></p>
+  <p class="Normal-4"><span class="CharOverride-10">Text text text text text</span></p>
 
 </div>
 </body>
@@ -34,7 +34,7 @@ Obviously, this is not great, and you may spend a significant amount of time imp
 
 This is where Blitz Tasks will shine.
 
-First, let’s init a config file using these 2 scripts: 
+First, let’s create and initialize an `id2018.json` config file using these 2 scripts: 
 
 ```
 {
@@ -122,16 +122,16 @@ So after the `retag` script is run by Blitz Tasks, this is the markup ready for 
 <section id="_idContainer021" class="_idGenObjectStyleOverride-1">
 
   <div class="_idGenObjectLayout-1">
-	  <figure id="_idContainer001">
-		  <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
-	  </figure>
+    <figure id="_idContainer001">
+      <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
+    </figure>
   </div>
 			
-	<h1 class="chapter_title">Title of chapter</h1>
+  <h1 class="chapter_title">Title of chapter</h1>
 
-	<p class="first"><span class="_idGenDropcap-1">T</span><span class="CharOverride-9">ext text text text text.</p>
+  <p class="first"><span class="_idGenDropcap-1">T</span><span class="CharOverride-9">ext text text text text.</p>
 
-	<p class="Normal"><span class="CharOverride-10">Text text text text text</span></p>
+  <p class="Normal"><span class="CharOverride-10">Text text text text text</span></p>
 
 </section>
 </body>
@@ -168,15 +168,15 @@ Here we are using the keyword `unwrap` in `replace` to tell Blitz Tasks to remov
 <body>
 <section id="_idContainer021" class="_idGenObjectStyleOverride-1">
 
-	<figure id="_idContainer001">
-		<img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
-	</figure>
+  <figure id="_idContainer001">
+    <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
+  </figure>
 			
-	<h1 class="chapter_title">Title of chapter</h1>
+  <h1 class="chapter_title">Title of chapter</h1>
 
-	<p class="first">Text text text text text.</p>
+  <p class="first">Text text text text text.</p>
 
-	<p class="Normal">Text text text text text</p>
+  <p class="Normal">Text text text text text</p>
 
 </section>
 </body>
@@ -200,15 +200,15 @@ For every element with an `id` starting with `_idContainer`, we remove the `id` 
 <body>
 <section class="_idGenObjectStyleOverride-1">
 
-	<figure>
-		<img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
-	</figure>
+  <figure>
+    <img class="_idGenObjectAttribute-1" src="image/image-1" alt="" />
+  </figure>
 			
-	<h1 class="chapter_title">Title of chapter</h1>
+  <h1 class="chapter_title">Title of chapter</h1>
 
-	<p class="first">Text text text text text.</p>
+  <p class="first">Text text text text text.</p>
 
-	<p class="Normal">Text text text text text</p>
+  <p class="Normal">Text text text text text</p>
 
 </section>
 </body>
@@ -232,15 +232,15 @@ And here is our final result:
 <body>
 <section>
 
-	<figure>
-		<img src="image/image-1" alt="" />
-	</figure>
+  <figure>
+    <img src="image/image-1" alt="" />
+  </figure>
 			
-	<h1>Title of chapter</h1>
+  <h1>Title of chapter</h1>
 
-	<p class="first">Text text text text text.</p>
+  <p class="first">Text text text text text.</p>
 
-	<p>Text text text text text</p>
+  <p>Text text text text text</p>
 
 </section>
 </body>
@@ -287,6 +287,14 @@ Our final config file should look like this:
   ]
 }
 ```
+
+Run:
+
+```
+gulp -c "./id2018.json"
+```
+
+and voilà, your output has been cleaned.
 
 This means that the next time you’ll have to handle this typical ouptut, it will take seconds to manage this task of improving markup. You could then use `classify`, `identify` and `attributify` scripts to add classes, ids and other attributes.
 
