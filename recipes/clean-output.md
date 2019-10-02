@@ -23,7 +23,7 @@ Without further ado, let’s see a sample of the markup we have to improve:
 
   <p class="first"><span class="_idGenDropcap-1">T</span><span class="CharOverride-9">ext text text text text.</p>
 
-  <p class="Normal-4"><span class="CharOverride-10">Text text text text text</span></p>
+  <p class="Normal"><span class="CharOverride-10">Text text text text text</span></p>
 
 </div>
 </body>
@@ -247,7 +247,7 @@ And here is our final result:
 </html>
 ```
 
-In 2 scripts and a few searches, we have cleaned our output.
+With two scripts and a few searches, we have cleaned our output.
 
 ## Recap
 
@@ -296,7 +296,7 @@ gulp -c "./id2018.json"
 
 and voilà, your output has been cleaned.
 
-This means that the next time you’ll have to handle this typical ouptut, it will take seconds to manage this task of improving markup. You could then use `classify`, `identify` and `attributify` scripts to add classes, ids and other attributes.
+This means that the next time you’ll have to handle this typical output, it will take seconds to manage this task of improving markup. You could then use `classify`, `identify` and `attributify` scripts to add classes, ids and other attributes.
 
 Of course, Blitz Tasks doesn’t pretend to be a silver bullet. If anything, it is limited by CSS selectors and some more complex modifications may become convoluted or even impossible – we may extend the syntax if you ask nicely though :-)
 

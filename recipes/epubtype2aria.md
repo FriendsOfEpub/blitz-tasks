@@ -41,7 +41,7 @@ For instance, you can’t have `doc-epigraph` on `section`:
 }
 ```
 
-You can’t either have a `doc-footnote` for `section`. But instead of adding another “search & replace”, we’ll add it to the one we have just created, leveraling the CSS selector syntax:
+You can’t either have a `doc-footnote` for `section`. But instead of adding another “search & replace”, we’ll add it to the one we have just created, leveraging the CSS selector syntax:
 
 ```
 {
