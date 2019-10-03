@@ -31,7 +31,7 @@ Let’s imagine you want to ad an id to all your figures.
 }
 ```
 
-Here we are searching for for the `figure` element, and add an `id` attribute with the `fig` prefix. This means your first figure will have `id="fig-1"`, second will have `id="fig-2"`, and so on and so forth.
+Here we are searching for the `figure` element, and add an `id` attribute with the `fig` prefix. This means your first figure will have `id="fig-1"`, second will have `id="fig-2"`, and so on and so forth.
 
 Note the increment will be reset for every document, Blitz Tasks doesn’t try to handle this incrementation per folder or EPUB file.
 
@@ -81,7 +81,7 @@ You could even identify all spans in paragraphs:
 
 And every `span` which is a direct descendant of `p` would get an `id` starting with the prefix `fragment-`. A potential use case for this would be identifying sentences in a document.
 
-It’s worth mentioning `identify` will overwrite any existing `id` (it must be a single value), so you could even use this script for changing the pattern of noterefs and footnotes for instance.
+It’s worth mentioning `identify` will overwrite any existing `id` (it must be a single value), so you could even use this script to change the pattern of noterefs and footnotes for instance.
 
 ```
 {
