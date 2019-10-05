@@ -128,7 +128,7 @@ Run:
 gulp -c "./del-example.json"
 ```
 
-and voilà, those files and their references in key EPUB files have been removed.
+and voilà, those files and their references in key EPUB files have been removed – Blitz Tasks will even take care of your NCX `ids`.
 
 The best part of it is that Blitz Tasks delete those files early in the process, so that they are not processed at all! This may be very visible when optimizing images for instance.
 

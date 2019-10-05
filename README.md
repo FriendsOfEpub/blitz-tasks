@@ -477,6 +477,7 @@ In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` sc
 - append
 - handleEPUB
 - handleOptions
+- identifyNCX (`--force` flag will bypass config.json)
 - imageOptim (`--force` flag will bypass config.json)
 - minifyCSS (`--force` flag will bypass config.json)
 - minifyJS (`--force` flag will bypass config.json)

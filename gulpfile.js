@@ -249,8 +249,8 @@ function handleDeleteNCX() {
   }
 }
 
-function handleIdNCX() {
-  if (configOpts && configOpts.deleteFiles && configOpts.epub) {
+function identifyNCX() {
+  if ((configOpts && configOpts.epub) || args.force) {
     return gulp.src(filePaths.ncx, {base: "./"})
     .pipe(cheerio({
       run: function ($, file) {
@@ -385,7 +385,7 @@ function prettyJS() {
   }
 }
 
-const handleNCX = gulp.series(handleDeleteNCX, handleIdNCX);
+const handleNCX = gulp.series(handleDeleteNCX, identifyNCX);
 const handleEPUB = gulp.parallel(handleOPF, handleNCX, handleNavDoc);
 
 const handleHTML = gulp.series(docOptions, prettyHTML);
@@ -402,6 +402,7 @@ exports.identify = identify;
 exports.attributify = attributify;
 exports.append = append;
 exports.handleEPUB = handleEPUB;
+exports.identifyNCX = identifyNCX;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
