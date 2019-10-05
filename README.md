@@ -111,7 +111,7 @@ If you don’t need to use a script, don’t use it (remove it entirely) in your
 
 Blitz Tasks uses a JSON config file to modify your documents. 
 
-It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, etc. in the future.
+It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, and help you manage breaking changes in a new major version, in the future.
 
 There are optional properties bound to the scripts Blitz Tasks currently offers:
 
@@ -255,7 +255,7 @@ With options you can:
 - optimize images;
 - minify or prettify stylesheets;
 - minify or prettify scripts;
-- delete files.
+- delete files and their entries in the EPUB’s OPF.
 
 #### Document Title
 
@@ -377,6 +377,20 @@ Property `deleteFiles` expects an array of strings (filenames).
 
 It makes sense to provide this option since you may remove `links`, `scripts`, etc. during the `sanitize` task. Note `default` will run this script immediately after `init` in order to save some useless processing – especially image optim and minification.
 
+#### Handle EPUB Idiosyncrasies
+
+Property `epub` expects a boolean.
+
+```
+"options": {
+  "epub": true
+}
+```
+
+When set to `true`, Blitz Tasks will run some extra processes specific to EPUB files e.g. deleting file entries from the OPF, NCX and Nav Doc.
+
+**Note:** This option is currently limited to deleting files but may be used for more in the future – rezipping in the correct order, adding metadata, etc.
+
 ## Recipes
 
 We have [a couple of guides](recipes/readme.md) demonstrating how to use these scripts in config files addressing more specific workflow issues. Do not hesitate to add yours!
@@ -461,7 +475,9 @@ In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` sc
 - classify
 - identify
 - append
+- handleEPUB
 - handleOptions
+- identifyNCX (`--force` flag will bypass config.json)
 - imageOptim (`--force` flag will bypass config.json)
 - minifyCSS (`--force` flag will bypass config.json)
 - minifyJS (`--force` flag will bypass config.json)
@@ -495,6 +511,12 @@ That said, Pull Requests adding support for XML (using [xml2json](https://www.np
 
 If you have this need/requirement and can manage its addition to Blitz Tasks, do not hesitate if you have questions or need clarifications.
 
+### Is Support of CSS Selectors Exactly the Same As Browsers
+
+Blitz Tasks is relying on [CheerioJS](https://cheerio.js.org), which is heavily inspired by jQuery. This means CheerioJS may support more than the browser you are using right now. 
+
+Therefore, Blitz Tasks is able to support pseudo-class `:has()` for instance, and search for elements containing other elements. As a practical example, you can filter `figure` with a `figcaption` like this: `figure:has(figcaption)`. And you could modify those `figures` differently e.g. a specific class because it has a `figcaption`.
+
 ### Can I Have a Script For X
 
 We welcome any idea, improvement, or fix that will benefit all users. 
@@ -505,11 +527,10 @@ Please note this repository is also a GitHub template so we’ve even made it ea
 
 ### Which Features May Be Prioritized If I Want To Contribute
 
-The most obvious one would be adding an `epub` option, that could indeed help:
+The most obvious one would be adding a `zip` option, that could indeed help:
 
-- Add and remove files from the package.opf
-- Unzip EPUB in input
-- Rezip EPUB in output
+- Unzip in input
+- Rezip folders or EPUB files (if `epub` set to true) in output
 
 ### Which Features Have Been Considered But Not Implemented
 

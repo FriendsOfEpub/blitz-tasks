@@ -10,19 +10,25 @@
     <text>Blitz Debug</text>
   </docTitle>
   <navMap>
-    <navPoint id="navPoint1">
+    <navPoint id="point1">
+      <navLabel>
+        <text>Cover</text>
+      </navLabel>
+      <content src="Text/cover.xhtml"/>
+    </navPoint>
+    <navPoint id="point2">
       <navLabel>
         <text>Title Page</text>
       </navLabel>
       <content src="Text/titlepage.xhtml"/>
     </navPoint>
-    <navPoint id="navPoint2">
+    <navPoint id="point3">
       <navLabel>
         <text>Chapter 1</text>
       </navLabel>
       <content src="Text/chapter1.xhtml"/>
     </navPoint>
-    <navPoint id="navPoint3">
+    <navPoint id="point4">
       <navLabel>
         <text>Chapter 2</text>
       </navLabel>

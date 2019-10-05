@@ -298,6 +298,6 @@ and voilà, your output has been cleaned.
 
 This means that the next time you’ll have to handle this typical output, it will take seconds to manage this task of improving markup. You could then use `classify`, `identify` and `attributify` scripts to add classes, ids and other attributes.
 
-Of course, Blitz Tasks doesn’t pretend to be a silver bullet. If anything, it is limited by CSS selectors and some more complex modifications may become convoluted or even impossible – we may extend the syntax if you ask nicely though :-)
+Of course, Blitz Tasks doesn’t pretend to be a silver bullet. If anything, it is limited by CSS selectors and some more complex modifications may become convoluted or even impossible – thanks to CheerioJS, the syntax is a little bit extended though, so you can use some pseudo-classes like `:has()` to only modify elements containing another one for instance.
 
 That being said, nobody wants to spend hours on the same markup changes over and over again; Blitz Tasks should be able to automate a lot of those changes, and help you focus on what can’t be.
