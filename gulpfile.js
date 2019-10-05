@@ -40,6 +40,9 @@ const filePaths = {
   },
   get opf() {
     return this.output + "/**/*.opf"
+  },
+  get ncx() {
+    return this.output + "/**/*.ncx"
   }
 }
 
@@ -211,7 +214,68 @@ function handleOPF() {
           const fileToDelete = configOpts.deleteFiles[f];
 
           $("manifest > item[href$='" + fileToDelete + "']").each(function() {
+            $("metadata").find("meta[content='" + $(this).attr("id") + "']").remove();
             $("spine").find("itemref[idref='" + $(this).attr("id") + "']").remove();
+            $(this).remove();
+          });
+        }
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+function handleDeleteNCX() {
+  if (configOpts && configOpts.deleteFiles && configOpts.epub) {
+    return gulp.src(filePaths.ncx, {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        for (let f in configOpts.deleteFiles) {
+          const fileToDelete = configOpts.deleteFiles[f];
+
+          $("navPoint").has("content[src*='" + fileToDelete + "']").each(function() {
+            $(this).remove();
+          });
+        }
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+function handleIdNCX() {
+  if (configOpts && configOpts.deleteFiles && configOpts.epub) {
+    return gulp.src(filePaths.ncx, {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        $("navPoint").each(function(i, item) {
+          const id = "navPoint" + (i + 1);
+          $(this).attr("id", id);
+        });
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
+function handleNavDoc() {
+  if (configOpts && configOpts.deleteFiles && configOpts.epub) {
+    return gulp.src(filePaths.html, {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        for (let f in configOpts.deleteFiles) {
+          const fileToDelete = configOpts.deleteFiles[f];
+
+          $("nav[epub\\:type='toc'] li, nav[epub\\:type='landmarks'] li, nav[epub\\:type='page-list'] li").has("a[href*='" + fileToDelete + "']").each(function() {
             $(this).remove();
           });
         }
@@ -321,10 +385,12 @@ function prettyJS() {
   }
 }
 
+const handleNCX = gulp.series(handleDeleteNCX, handleIdNCX);
+const handleEPUB = gulp.parallel(handleOPF, handleNCX, handleNavDoc);
+
 const handleHTML = gulp.series(docOptions, prettyHTML);
 const handleCSS = gulp.series(prettyCSS, minifyCSS);
 const handleJS = gulp.series(prettyJS, minifyJS);
-
 const handleOptions = gulp.parallel(handleHTML, imageOptim, handleCSS, handleJS);
 
 exports.init = init;
@@ -335,7 +401,7 @@ exports.classify = classify;
 exports.identify = identify;
 exports.attributify = attributify;
 exports.append = append;
-exports.handleOPF = handleOPF;
+exports.handleEPUB = handleEPUB;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
@@ -343,4 +409,4 @@ exports.prettyHTML = prettyHTML;
 exports.prettyCSS = prettyCSS;
 exports.prettyJS = prettyJS;
 exports.handleOptions = handleOptions;
-exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOPF, handleOptions);
+exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleEPUB, handleOptions);

@@ -12,17 +12,23 @@
   <navMap>
     <navPoint id="navPoint1">
       <navLabel>
+        <text>Cover</text>
+      </navLabel>
+      <content src="Text/cover.xhtml"/>
+    </navPoint>
+    <navPoint id="navPoint2">
+      <navLabel>
         <text>Title Page</text>
       </navLabel>
       <content src="Text/titlepage.xhtml"/>
     </navPoint>
-    <navPoint id="navPoint2">
+    <navPoint id="navPoint3">
       <navLabel>
         <text>Chapter 1</text>
       </navLabel>
       <content src="Text/chapter1.xhtml"/>
     </navPoint>
-    <navPoint id="navPoint3">
+    <navPoint id="navPoint4">
       <navLabel>
         <text>Chapter 2</text>
       </navLabel>

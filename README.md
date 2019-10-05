@@ -387,7 +387,7 @@ Property `epub` expects a boolean.
 }
 ```
 
-When set to `true`, Blitz Tasks will run some extra processes specific to EPUB files e.g. deleting file entries from the OPF’s `manifest` and `spine`.
+When set to `true`, Blitz Tasks will run some extra processes specific to EPUB files e.g. deleting file entries from the OPF, NCX and Nav Doc.
 
 **Note:** This option is currently limited to deleting files but may be used for more in the future – rezipping in the correct order, adding metadata, etc.
 
@@ -475,7 +475,7 @@ In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` sc
 - classify
 - identify
 - append
-- handleOPF
+- handleEPUB
 - handleOptions
 - imageOptim (`--force` flag will bypass config.json)
 - minifyCSS (`--force` flag will bypass config.json)
