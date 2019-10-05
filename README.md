@@ -510,6 +510,12 @@ That said, Pull Requests adding support for XML (using [xml2json](https://www.np
 
 If you have this need/requirement and can manage its addition to Blitz Tasks, do not hesitate if you have questions or need clarifications.
 
+### Is Support of CSS Selectors Exactly the Same As Browsers
+
+Blitz Tasks is relying on [CheerioJS](https://cheerio.js.org), which is heavily inspired by jQuery. This means CheerioJS may support more than the browser you are using right now. 
+
+Therefore, Blitz Tasks is able to support pseudo-class `:has()` for instance, and search for elements containing other elements. As a practical example, you can filter `figure` with a `figcaption` like this: `figure:has(figcaption)`. And you could modify those `figures` differently e.g. a specific class because it has a `figcaption`.
+
 ### Can I Have a Script For X
 
 We welcome any idea, improvement, or fix that will benefit all users. 
