@@ -255,7 +255,7 @@ With options you can:
 - optimize images;
 - minify or prettify stylesheets;
 - minify or prettify scripts;
-- delete files and their entries in the EPUB’s OPF.
+- delete files and their entries in the EPUB’s OPF, NCX, and Nav Doc.
 
 #### Document Title
 
@@ -411,7 +411,7 @@ First, you must init a session:
 gulp init
 ```
 
-`init` will copy everything from `input` into `output`. Indeed, Blitz Tasks doesn’t modify your input, just in case, and will only alter files it finds in the output folder. This means you should think in terms of “sessions.” Each time you add to input, you should consider it a new session – `default` script automatically creates a new session every time it is run.
+`init` will copy everything from `input` into `output`. Indeed, Blitz Tasks doesn’t modify your input, just in case, and will only alter files it finds in the output folder. This means you should think in terms of “sessions.” Each time you add to input, you should consider it a new session – `default` script automatically creates a new session every time it is run, and effectively resets `output`.
 
 This will only run the retag script with the existing config file:
 
@@ -467,7 +467,7 @@ In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` sc
 
 ### Available Scripts
 
-- default
+- default (this will run all scripts below)
 - init
 - deleteFiles
 - retag
@@ -485,7 +485,7 @@ In this example, we are running the `imageOptim`, `minifyCSS`, and `minifyJS` sc
 - prettyCSS (`--force` flag will bypass config.json)
 - prettyJS (`--force` flag will bypass config.json)
 
-You can see a list of available scripts by running `gulp --tasks`.
+You can see a list of available scripts by running `gulp --tasks`. Note scripts that can be forced can run asynchronously i.e. you don’t need the `--series` flag if running several of these.
 
 If you want examples of how you can use a subset of those scripts with npm, take a look at [`scripts` in package.json](package.json) (e.g. `npm run optim`, `npm run clean`, etc.).
 
