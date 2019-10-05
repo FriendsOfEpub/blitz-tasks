@@ -111,7 +111,7 @@ If you don’t need to use a script, don’t use it (remove it entirely) in your
 
 Blitz Tasks uses a JSON config file to modify your documents. 
 
-It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, etc. in the future.
+It is recommended to define a useful `scope` and `version` for each config file. Those 2 properties are informational today, but may be used for scoping changes to precise folders, and help you manage breaking changes in a new major version, in the future.
 
 There are optional properties bound to the scripts Blitz Tasks currently offers:
 
