@@ -37,6 +37,9 @@ const filePaths = {
   },
   get images() {
     return this.output + "/**/*.{gif,jpg,jpeg,png,svg}"
+  },
+  get opf() {
+    return this.output + "/**/*.opf"
   }
 }
 
@@ -66,8 +69,8 @@ function init() {
 function deleteFiles() {
   if ((configOpts && configOpts.deleteFiles)) {
     let filesToDelete = [];
-    for (let file in configOpts.deleteFiles) {
-      fileToDelete = filePaths.output + "/**/" + configOpts.deleteFiles[file];
+    for (let f in configOpts.deleteFiles) {
+      const fileToDelete = filePaths.output + "/**/" + configOpts.deleteFiles[f];
       filesToDelete.push(fileToDelete);
     }
     return del(filesToDelete);
@@ -199,6 +202,28 @@ function append() {
   }
 }
 
+function handleOPF() {
+  if (configOpts && configOpts.deleteFiles && configOpts.epub) {
+    return gulp.src(filePaths.opf, {base: "./"})
+    .pipe(cheerio({
+      run: function ($, file) {
+        for (let f in configOpts.deleteFiles) {
+          const fileToDelete = configOpts.deleteFiles[f];
+
+          $("manifest > item[href$='" + fileToDelete + "']").each(function() {
+            $("spine").find("itemref[idref='" + $(this).attr("id") + "']").remove();
+            $(this).remove();
+          });
+        }
+      },
+      parserOptions: cheerioOpts
+    }))
+    .pipe(gulp.dest("./"))
+  } else {
+    return Promise.resolve("Config doesn’t use this task, it was ignored.");
+  }
+}
+
 function docOptions() {
   if (configOpts && (configOpts.docTitle || configOpts.docLang)) {
     return gulp.src(filePaths.html, {base: "./"})
@@ -310,6 +335,7 @@ exports.classify = classify;
 exports.identify = identify;
 exports.attributify = attributify;
 exports.append = append;
+exports.handleOPF = handleOPF;
 exports.imageOptim = imageOptim;
 exports.minifyCSS = minifyCSS;
 exports.minifyJS = minifyJS;
@@ -317,4 +343,4 @@ exports.prettyHTML = prettyHTML;
 exports.prettyCSS = prettyCSS;
 exports.prettyJS = prettyJS;
 exports.handleOptions = handleOptions;
-exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOptions);
+exports.default = gulp.series(init, deleteFiles, retag, sanitize, classify, identify, attributify, append, handleOPF, handleOptions);

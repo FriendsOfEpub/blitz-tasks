@@ -114,6 +114,7 @@
     "prettyHTML": true,
     "prettyCSS": false,
     "prettyJS": false,
-    "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"]
+    "deleteFiles": ["blitz-kindle.css", "cover.xhtml", "cover.png"],
+    "epub": true
   }
 }
