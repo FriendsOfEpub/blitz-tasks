@@ -1,6 +1,6 @@
 {
   "name": "blitz-tasks",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Automating markup changes with node, gulp and config files",
   "scripts": {
     "optim": "gulp init && gulp imageOptim minifyCSS minifyJS --force",
